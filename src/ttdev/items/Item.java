@@ -23,6 +23,7 @@ public class Item {
 		return this.itemStack;
 	}
 	
+	
 	public void addEnchant(Enchantment enchantment, int level) {
 		this.itemMeta.addEnchant(enchantment, level, false);
 	}
