@@ -1,4 +1,4 @@
-package ttdev.items;
+package ttdev.api.items;
 
 
 import java.util.List;
@@ -9,7 +9,7 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import ttdev.color.Chat;
+import ttdev.api.color.Chat;
 
 public class Item {
 

@@ -1,11 +1,11 @@
-package ttdev.inventory;
+package ttdev.api.inventory;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
-import ttdev.color.Chat;
+import ttdev.api.color.Chat;
 import ttdev.items.Item;
 
 public class PlayerInventory {

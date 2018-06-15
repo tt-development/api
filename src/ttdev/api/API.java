@@ -1,4 +1,4 @@
-package ttdev;
+package ttdev.api;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
