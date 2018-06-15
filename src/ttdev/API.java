@@ -12,7 +12,6 @@ public class API extends JavaPlugin {
 	
 	public void onEnable() {
 		singleton = this;
-		
 	}
 	
 }

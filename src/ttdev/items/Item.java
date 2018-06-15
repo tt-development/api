@@ -4,6 +4,7 @@ package ttdev.items;
 import java.util.List;
 import java.util.Map;
 
+import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -26,11 +27,27 @@ public class Item {
 	
 	/**
 	 * 
+	 * @param material
+	 */
+	public Item(Material material) {
+		this.itemStack = new ItemStack(material);
+	}
+	
+	/**
+	 * 
 	 * @return
 	 */
 	public ItemStack getItemStack() {
 		this.itemStack.setItemMeta(itemMeta);
 		return this.itemStack;
+	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public Material getMaterial() {
+		return this.itemStack.getType();
 	}
 	
 	/**
