@@ -6,6 +6,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 import ttdev.api.color.Chat;
+import ttdev.api.inventory.listener.InventoryEvent;
 import ttdev.api.items.Item;
 
 public class PlayerInventory {
@@ -28,10 +29,18 @@ public class PlayerInventory {
 		InventoryEvent.addInventory(this);
 	}
 	
+	/**
+	 * 
+	 * @param player
+	 */
 	public void setLastClicker(Player player) {
 		this.lastClicker = player;
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public Player getLastClicker() {
 		return lastClicker;
 	}

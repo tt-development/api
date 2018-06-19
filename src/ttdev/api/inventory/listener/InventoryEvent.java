@@ -1,4 +1,4 @@
-package ttdev.api.inventory;
+package ttdev.api.inventory.listener;
 
 import java.util.ArrayList;
 
@@ -9,6 +9,10 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 
 import ttdev.api.API;
+import ttdev.api.inventory.PlayerInventory;
+import ttdev.api.inventory.event.InventoryClickEventInitiater;
+import ttdev.api.items.Item;
+import ttdev.api.inventory.event.InventoryClick;
 
 public class InventoryEvent implements Listener {
 
@@ -28,6 +32,23 @@ public class InventoryEvent implements Listener {
 	
 	public static ArrayList<PlayerInventory> getInventories() {
 		return inventories;
+	}
+	
+	@EventHandler
+	public static void onInventoryClick(InventoryClickEvent e) {
+		Player player = (Player) e.getWhoClicked();
+		PlayerInventory inv = null;
+		
+		for (int i=0; i < inventories.size(); i++) {
+			if (inventories.get(i).getInventory().equals(e.getClickedInventory())) {
+				inv = inventories.get(i);
+			}
+		}
+		
+		Item item = new Item(e.getCurrentItem());
+		
+		InventoryClick event = new InventoryClick(player, inv, item, e.isRightClick(), e.isLeftClick(), e.isShiftClick(), e.getSlot(), e.getClick(), e.getHotbarButton());
+		InventoryClickEventInitiater.InventoryClick(event);
 	}
 	
 	@EventHandler
