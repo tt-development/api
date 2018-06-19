@@ -15,9 +15,12 @@ public class API extends JavaPlugin {
 	
 	public void onEnable() {
 		singleton = this;
-		
 	}
 	
+	/**
+	 * 
+	 * @param listener
+	 */
 	public static void registerEvent(InventoryListener listener) {
 		InventoryClickEventInitiater.registerEvent(listener);
 	}
