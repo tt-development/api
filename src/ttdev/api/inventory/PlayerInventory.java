@@ -6,12 +6,14 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 import ttdev.api.color.Chat;
-import ttdev.items.Item;
+import ttdev.api.items.Item;
 
 public class PlayerInventory {
 
 	private String name;
 	private int size;
+	
+	private Player lastClicker;
 	
 	private Inventory inventory;
 	
@@ -22,6 +24,16 @@ public class PlayerInventory {
 	 */
 	public PlayerInventory(String name, int size) {
 		this.inventory = Bukkit.createInventory(null, size, Chat.convertColors(name));
+		
+		InventoryEvent.addInventory(this);
+	}
+	
+	public void setLastClicker(Player player) {
+		this.lastClicker = player;
+	}
+	
+	public Player getLastClicker() {
+		return lastClicker;
 	}
 	
 	/**
