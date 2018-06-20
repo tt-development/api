@@ -7,8 +7,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import ttdev.api.API;
 import ttdev.api.inventory.AInventory;
-import ttdev.api.inventory.event.InventoryClick;
-import ttdev.api.inventory.event.InventoryClickEventInitiater;
+import ttdev.api.inventory.events.inventoryclick.InventoryClickEventInitiater;
+import ttdev.api.inventory.events.inventoryclick.InventoryClick;
 import ttdev.api.items.Item;
 
 import java.util.ArrayList;
@@ -25,8 +25,12 @@ public class InventoryEvent implements Listener {
 	
 	private static ArrayList<AInventory> inventories = new ArrayList<>();
 	
-	public static void addInventory(AInventory playerInventory) {
-		inventories.add(playerInventory);
+	public static void addInventory(AInventory inventory) {
+		inventories.add(inventory);
+	}
+	
+	public static void removeInventory(AInventory inventory) {
+		inventories.remove(inventory);
 	}
 	
 	public static ArrayList<AInventory> getInventories() {

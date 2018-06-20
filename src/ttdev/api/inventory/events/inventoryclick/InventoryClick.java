@@ -1,10 +1,9 @@
-package ttdev.api.inventory.event;
+package ttdev.api.inventory.events.inventoryclick;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
 
 import ttdev.api.inventory.AInventory;
-import ttdev.api.inventory.PlayerInventory;
 import ttdev.api.items.Item;
 
 public class InventoryClick {
