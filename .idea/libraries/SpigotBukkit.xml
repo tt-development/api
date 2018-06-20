@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="SpigotBukkit">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/Desktop/Minecraft Software/BuildTools/1.8.8 API/CraftBukkit/target/craftbukkit-1.8.8-R0.1-SNAPSHOT.jar!/" />
+      <root url="jar://$USER_HOME$/Desktop/Minecraft Software/BuildTools/1.8.8 API/Spigot/Spigot-API/target/spigot-api-1.8.8-R0.1-SNAPSHOT-shaded.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/Desktop/Minecraft Software/BuildTools/1.8.8 API/CraftBukkit/target/craftbukkit-1.8.8-R0.1-SNAPSHOT.jar!/" />
+    </SOURCES>
+  </library>
+</component>
