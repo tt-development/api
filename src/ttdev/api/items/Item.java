@@ -3,13 +3,14 @@ package ttdev.api.items;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-
-import ttdev.api.color.Chat;
 
 public class Item {
 
@@ -69,10 +70,53 @@ public class Item {
 	
 	/**
 	 * 
+	 * @param enchantment
+	 * @param level
+	 */
+	public void addUnsafeEnchant(Enchantment enchantment, int level) {
+		this.itemStack.addUnsafeEnchantment(enchantment, level);
+	}
+	
+	/**
+	 * 
+	 * @param enchantment
+	 * @return
+	 */
+	public int getEnchantmentLevel(Enchantment enchantment) {
+		return this.itemStack.getEnchantmentLevel(enchantment);
+	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public Map<Enchantment, Integer> getEnchantments() {
+		return this.itemStack.getEnchantments();
+	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public int getDurability() {
+		return this.itemStack.getDurability();
+	}
+	
+	/**
+	 * 
+	 * @param durability
+	 */
+	public void setDurability(int durability) {
+		Short d = (short) durability;
+		this.itemStack.setDurability(d);
+	}
+	
+	/**
+	 * 
 	 * @param Set the displayname of an item.
 	 */
 	public void setName(String name) {
-		this.itemMeta.setDisplayName(Chat.convertColors(name));
+		this.itemMeta.setDisplayName(ChatColor.translateAlternateColorCodes('&', name));
 	}
 	
 	/**
@@ -81,7 +125,7 @@ public class Item {
 	 */
 	public void addLore(String lore) {
 		List<String> lores = this.itemMeta.getLore();
-		lores.add(Chat.convertColors(lore));
+		lores.add(ChatColor.translateAlternateColorCodes('&', lore));
 		this.itemMeta.setLore(lores);
 	}
 	
@@ -107,6 +151,38 @@ public class Item {
 	 */
 	public List<String> getLore() {
 		return this.itemMeta.getLore();
+	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public boolean hasLore() {
+		return this.itemMeta.hasLore();
+	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public Material getType() {
+		return this.itemStack.getType();
+	}
+	
+	/**
+	 * 
+	 * @param itemFlag
+	 */
+	public void addItemFlag(ItemFlag itemFlag) {
+		this.itemMeta.addItemFlags(itemFlag);
+	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public Set<ItemFlag> getItemFlags() {
+		return this.itemMeta.getItemFlags();
 	}
 	
 }

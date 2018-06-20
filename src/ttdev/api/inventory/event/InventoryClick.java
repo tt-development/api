@@ -2,13 +2,15 @@ package ttdev.api.inventory.event;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
+
+import ttdev.api.inventory.AInventory;
 import ttdev.api.inventory.PlayerInventory;
 import ttdev.api.items.Item;
 
 public class InventoryClick {
 
 	private Player whoClicked;
-	private PlayerInventory playerInventory;
+	private AInventory aInventory;
 	private Item clickedItem;
 	
 	private boolean isRightClick;
@@ -20,9 +22,9 @@ public class InventoryClick {
 	
 	private ClickType clickType;
 	
-	public InventoryClick(Player whoClicked, PlayerInventory playerInventory, Item clickedItem, boolean RightClick, boolean leftClick, boolean shiftClick, int Slot, ClickType clickType, int hotbarSlot) {
+	public InventoryClick(Player whoClicked, AInventory playerInventory, Item clickedItem, boolean RightClick, boolean leftClick, boolean shiftClick, int Slot, ClickType clickType, int hotbarSlot) {
 		this.whoClicked = whoClicked;
-		this.playerInventory = playerInventory;
+		this.aInventory = playerInventory;
 		this.clickedItem = clickedItem;
 		this.isRightClick = RightClick;
 		this.isLeftClick = leftClick;
@@ -44,8 +46,8 @@ public class InventoryClick {
 	 * 
 	 * @return
 	 */
-	public PlayerInventory getPlayerInventory() {
-		return this.playerInventory;
+	public AInventory getPlayerInventory() {
+		return this.aInventory;
 	}
 	
 	/**
