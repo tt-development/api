@@ -1,37 +1,21 @@
 package ttdev.api.player;
 
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import ttdev.api.data.DataStore;
 
-import java.util.UUID;
-
-public class APlayer implements IPlayer {
+/**
+ * An extensible class that provides shorthands for
+ * commonly used player functions. Extend this class to add plugin
+ * specific player functions.
+ */
+class APlayer extends DataStore implements IPlayer {
 
     private Player player;
 
-    private APlayer(Player player) {
+    APlayer(Player player) {
         this.player = player;
-    }
-
-    /**
-     * Create an instance of this wrapper using the provided player
-     * reference.
-     * @param player
-     * @return
-     */
-    public static IPlayer getInstance(Player player) {
-        return new APlayer(player);
-    }
-
-    /**
-     * Create an instance of this wrapper using the provided UUID.
-     * @param uuid
-     * @return
-     */
-    public static IPlayer getInstance(UUID uuid) {
-        return new APlayer(Bukkit.getPlayer(uuid));
     }
 
     /**
