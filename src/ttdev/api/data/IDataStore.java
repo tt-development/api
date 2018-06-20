@@ -10,9 +10,15 @@ public interface IDataStore {
 
     void saveString(String value, String path);
 
+    String loadString(String path);
+
     void saveInteger(Integer value, String path);
 
+    Integer loadInteger(String path);
+
     void saveDouble(Double value, String path);
+
+    Double loadDouble(String path);
 
     void save(IPreservable preservable);
 

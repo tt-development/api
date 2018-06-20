@@ -6,7 +6,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import java.io.File;
 import java.io.IOException;
 
-public abstract class DataStore implements IDataStore {
+public class DataStore implements IDataStore {
 
     private File associatedFile;
     private FileConfiguration configuration;
@@ -24,15 +24,30 @@ public abstract class DataStore implements IDataStore {
     }
 
     @Override
+    public String loadString(String path) {
+        return configuration.getString(path);
+    }
+
+    @Override
     public void saveInteger(Integer value, String path) {
         configuration.set(path, value);
         saveConfiguration();
     }
 
     @Override
+    public Integer loadInteger(String path) {
+        return configuration.getInt(path);
+    }
+
+    @Override
     public void saveDouble(Double value, String path) {
         configuration.set(path, value);
         saveConfiguration();
+    }
+
+    @Override
+    public Double loadDouble(String path) {
+        return configuration.getDouble(path);
     }
 
     @Override

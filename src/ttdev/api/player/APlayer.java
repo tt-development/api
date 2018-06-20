@@ -5,6 +5,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import ttdev.api.data.DataStore;
 
+import java.util.List;
+
 /**
  * An extensible class that provides shorthands for
  * commonly used player functions. Extend this class to add plugin
@@ -27,6 +29,30 @@ class APlayer extends DataStore implements IPlayer {
     }
 
     @Override
+    public void giveItem(ItemStack itemStack) {
+        player.getInventory().addItem(itemStack);
+    }
+
+    @Override
+    public void removeItem(ItemStack itemStack) {
+        player.getInventory().removeItem(itemStack);
+    }
+
+    @Override
+    public void giveItems(List<ItemStack> itemStacks) {
+        ItemStack[] itemArray = new ItemStack[itemStacks.size()];
+        itemStacks.toArray(itemArray);
+        player.getInventory().addItem(itemArray);
+    }
+
+    @Override
+    public void removeItems(List<ItemStack> itemStacks) {
+        ItemStack[] itemArray = new ItemStack[itemStacks.size()];
+        itemStacks.toArray(itemArray);
+        player.getInventory().removeItem(itemArray);
+    }
+
+    @Override
     public ItemStack setInventorySlot(int slot, ItemStack item) {
         ItemStack currentItem = getInventorySlot(slot);
         player.getInventory().setItem(slot, item);
@@ -44,8 +70,20 @@ class APlayer extends DataStore implements IPlayer {
     }
 
     @Override
+    public void sendColoredMessage(String message, Object... args) {
+        String formattedMessage = String.format(message, args);
+        player.sendMessage(ChatColor.translateAlternateColorCodes('&', formattedMessage));
+    }
+
+    @Override
     public void sendColoredMessage(char colorCode, String message) {
         player.sendMessage(ChatColor.translateAlternateColorCodes(colorCode, message));
+    }
+
+    @Override
+    public void sendColoredMessage(char colorcode, String message, Object... args) {
+        String formattedMessage = String.format(message, args);
+        player.sendMessage(ChatColor.translateAlternateColorCodes(colorcode, formattedMessage));
     }
 
 }
