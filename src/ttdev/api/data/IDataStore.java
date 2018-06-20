@@ -2,6 +2,10 @@ package ttdev.api.data;
 
 public interface IDataStore {
 
+    /**
+     * Use the specified file for storing data in this object.
+     * @param path
+     */
     void useFile(String path);
 
     void saveString(String value, String path);

@@ -38,11 +38,13 @@ public abstract class DataStore implements IDataStore {
     @Override
     public void save(IPreservable preservable) {
         preservable.save(configuration);
+        saveConfiguration();
     }
 
     @Override
     public void load(IPreservable preservable) {
         preservable.load(configuration);
+        saveConfiguration();
     }
 
     private void saveConfiguration() {
