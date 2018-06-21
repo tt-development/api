@@ -53,7 +53,7 @@ public interface IPlayer extends IDataStore {
      * @param item
      */
     void removeItem(Item item);
-    
+
     /**
      * Will attempt to add a list of items to this players inventory.
      * If there isn't enough space in the inventory to fit all the items, then
@@ -63,12 +63,44 @@ public interface IPlayer extends IDataStore {
     void giveItems(List<ItemStack> itemStacks);
 
     /**
+     * Will attempt to add a list of items to this players inventory.
+     * If there isn't enough space in the inventory to fit all the items, then
+     * only some of the item will get added.
+     * @param items
+     */
+    void giveItems(ItemStack... items);
+
+    /**
+     * Will attempt to add a list of items to this players inventory.
+     * If there isn't enough space in the inventory to fit all the items, then
+     * only some of the item will get added.
+     * @param items
+     */
+    void giveItems(Item... items);
+
+    /**
      * Will attempt to remove a list of items from this players inventory.
      * If an item in the list doesn't exist in the players inventory then it won't
      * be removed.
      * @param itemStacks
      */
     void removeItems(List<ItemStack> itemStacks);
+
+    /**
+     * Will attempt to remove a list of items from this players inventory.
+     * If an item in the list doesn't exist in the players inventory then it won't
+     * be removed.
+     * @param items
+     */
+    void removeItems(ItemStack... items);
+
+    /**
+     * Will attempt to remove a list of items from this players inventory.
+     * If an item in the list doesn't exist in the players inventory then it won't
+     * be removed.
+     * @param items
+     */
+    void removeItems(Item... items);
 
     /**
      * Sets the item in <code>slot</code> to <code>item</code>

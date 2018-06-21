@@ -2,10 +2,12 @@ package ttdev.api.player;
 
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import ttdev.api.data.DataStore;
 import ttdev.api.items.Item;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -35,8 +37,18 @@ class APlayer extends DataStore implements IPlayer {
     }
 
     @Override
+    public void giveItem(Item item) {
+        player.getInventory().addItem(item.getItemStack());
+    }
+
+    @Override
     public void removeItem(ItemStack itemStack) {
         player.getInventory().removeItem(itemStack);
+    }
+
+    @Override
+    public void removeItem(Item item) {
+        player.getInventory().remove(item.getItemStack());
     }
 
     @Override
@@ -47,10 +59,32 @@ class APlayer extends DataStore implements IPlayer {
     }
 
     @Override
+    public void giveItems(ItemStack... items) {
+        player.getInventory().addItem(items);
+    }
+
+    @Override
+    public void giveItems(Item... items) {
+        Inventory inventory = player.getInventory();
+        Arrays.stream(items).map(Item::getItemStack).forEach(inventory::addItem);
+    }
+
+    @Override
     public void removeItems(List<ItemStack> itemStacks) {
         ItemStack[] itemArray = new ItemStack[itemStacks.size()];
         itemStacks.toArray(itemArray);
         player.getInventory().removeItem(itemArray);
+    }
+
+    @Override
+    public void removeItems(ItemStack... items) {
+        player.getInventory().removeItem(items);
+    }
+
+    @Override
+    public void removeItems(Item... items) {
+        Inventory inventory = player.getInventory();
+        Arrays.stream(items).map(Item::getItemStack).forEach(inventory::removeItem);
     }
 
     @Override
@@ -86,17 +120,6 @@ class APlayer extends DataStore implements IPlayer {
         String formattedMessage = String.format(message, args);
         player.sendMessage(ChatColor.translateAlternateColorCodes(colorcode, formattedMessage));
     }
-
-	@Override
-	public void giveItem(Item item) {
-		player.getInventory().addItem(item.getItemStack());
-		
-	}
-
-	@Override
-	public void removeItem(Item item) {
-		player.getInventory().remove(item.getItemStack());
-	}
 
     @Override
     public boolean equals(APlayer player) {
