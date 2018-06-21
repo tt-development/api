@@ -4,8 +4,10 @@ import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import ttdev.api.inventory.event.InventoryClickEventInitiater;
-import ttdev.api.inventory.event.InventoryListener;
+import ttdev.api.inventory.events.inventoryclick.InventoryClickEventInitiater;
+import ttdev.api.inventory.events.inventoryclick.InventoryListener;
+import ttdev.api.inventory.events.inventoryupdate.InventoryUpdateEventInitiater;
+import ttdev.api.inventory.events.inventoryupdate.InventoryUpdateListener;
 import ttdev.api.redstone.event.RedstoneListener;
 import ttdev.api.redstone.event.RedstoneTriggerEventInitiater;
 
@@ -35,6 +37,14 @@ public class API extends JavaPlugin {
 	 */
 	public static void registerEvent(RedstoneListener listener) {
 		RedstoneTriggerEventInitiater.registerEvent(listener);
+	}
+	
+	/**
+	 * 
+	 * @param listener
+	 */
+	public static void registerEvent(InventoryUpdateListener listener) {
+		InventoryUpdateEventInitiater.registerEvent(listener);
 	}
 	
 	/**

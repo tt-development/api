@@ -6,9 +6,9 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import ttdev.api.API;
-import ttdev.api.inventory.PlayerInventory;
-import ttdev.api.inventory.event.InventoryClick;
-import ttdev.api.inventory.event.InventoryClickEventInitiater;
+import ttdev.api.inventory.AInventory;
+import ttdev.api.inventory.events.inventoryclick.InventoryClickEventInitiater;
+import ttdev.api.inventory.events.inventoryclick.InventoryClick;
 import ttdev.api.items.Item;
 
 import java.util.ArrayList;
@@ -23,20 +23,24 @@ public class InventoryEvent implements Listener {
 		Bukkit.getPluginManager().registerEvents(this, API.getInstance());
 	}
 	
-	private static ArrayList<PlayerInventory> inventories = new ArrayList<>();
+	private static ArrayList<AInventory> inventories = new ArrayList<>();
 	
-	public static void addInventory(PlayerInventory playerInventory) {
-		inventories.add(playerInventory);
+	public static void addInventory(AInventory inventory) {
+		inventories.add(inventory);
 	}
 	
-	public static ArrayList<PlayerInventory> getInventories() {
+	public static void removeInventory(AInventory inventory) {
+		inventories.remove(inventory);
+	}
+	
+	public static ArrayList<AInventory> getInventories() {
 		return inventories;
 	}
 	
 	@EventHandler
 	public static void onInventoryClick(InventoryClickEvent e) {
 		Player player = (Player) e.getWhoClicked();
-		PlayerInventory inv = null;
+		AInventory inv = null;
 		
 		for (int i=0; i < inventories.size(); i++) {
 			if (inventories.get(i).getInventory().equals(e.getInventory())) {

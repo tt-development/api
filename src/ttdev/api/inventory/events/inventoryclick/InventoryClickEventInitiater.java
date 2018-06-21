@@ -1,4 +1,4 @@
-package ttdev.api.inventory.event;
+package ttdev.api.inventory.events.inventoryclick;
 
 import java.util.ArrayList;
 

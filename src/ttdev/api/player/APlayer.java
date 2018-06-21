@@ -4,6 +4,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import ttdev.api.data.DataStore;
+import ttdev.api.items.Item;
 
 import java.util.List;
 
@@ -85,5 +86,16 @@ class APlayer extends DataStore implements IPlayer {
         String formattedMessage = String.format(message, args);
         player.sendMessage(ChatColor.translateAlternateColorCodes(colorcode, formattedMessage));
     }
+
+	@Override
+	public void giveItem(Item item) {
+		player.getInventory().addItem(item.getItemStack());
+		
+	}
+
+	@Override
+	public void removeItem(Item item) {
+		player.getInventory().remove(item.getItemStack());
+	}
 
 }
