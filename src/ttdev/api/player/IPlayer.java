@@ -118,4 +118,21 @@ public interface IPlayer extends IDataStore {
      */
     void sendColoredMessage(char colorcode, String message, Object... args);
 
+    /**
+     * Checks equality between this player and the specified player by
+     * comparing UUIDs.
+     * UUID.
+     * @param player
+     * @return
+     */
+    boolean equals(APlayer player);
+
+    /**
+     * Checks equality between this player and the specified player by
+     * comparing UUIDs.
+     * @param player
+     * @return
+     */
+    boolean equals(Player player);
+
 }

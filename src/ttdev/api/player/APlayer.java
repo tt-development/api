@@ -98,4 +98,14 @@ class APlayer extends DataStore implements IPlayer {
 		player.getInventory().remove(item.getItemStack());
 	}
 
+    @Override
+    public boolean equals(APlayer player) {
+        return this.player.getUniqueId().equals(player.player().getUniqueId());
+    }
+
+    @Override
+    public boolean equals(Player player) {
+        return this.player.getUniqueId().equals(player.getUniqueId());
+    }
+
 }
