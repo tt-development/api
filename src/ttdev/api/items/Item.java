@@ -18,7 +18,16 @@ public class Item {
 	private ItemMeta itemMeta;
 	
 	/**
-	 * 
+	 * Create an instance of Item with an Item.
+	 * @param item
+	 */
+	public Item(Item item) {
+		this.itemStack = item.getItemStack().clone();
+		this.itemMeta = item.getItemMeta().clone();
+	}
+	
+	/**
+	 * Create an instance of Item with an ItemStack.
 	 * @param ItemStack
 	 */
 	public Item(ItemStack itemStack) {
@@ -27,7 +36,7 @@ public class Item {
 	}
 	
 	/**
-	 * 
+	 * Create an instance of Item with an ItemStack
 	 * @param material
 	 */
 	public Item(Material material) {
@@ -35,7 +44,7 @@ public class Item {
 	}
 	
 	/**
-	 * 
+	 * Returns ItemStack.
 	 * @return
 	 */
 	public ItemStack getItemStack() {
@@ -44,7 +53,15 @@ public class Item {
 	}
 	
 	/**
-	 * 
+	 * Returns ItemMeta.
+	 * @return
+	 */
+	public ItemMeta getItemMeta() {
+		return this.itemMeta;
+	}
+	
+	/**
+	 * Returns Material.
 	 * @return
 	 */
 	public Material getMaterial() {
@@ -52,24 +69,24 @@ public class Item {
 	}
 	
 	/**
-	 * 
-	 * @param Enchantment that will be added to the item.
-	 * @param Level of the enchantment.
+	 * Adds an enchantment to the Item.
+	 * @param enchantment
+	 * @param level
 	 */
 	public void addEnchant(Enchantment enchantment, int level) {
 		this.itemMeta.addEnchant(enchantment, level, false);
 	}
 	
 	/**
-	 * 
-	 * @param Remove an enchantment from an item.
+	 * Removes an enchantment from the Item.
+	 * @param enchantment
 	 */
 	public void removeEnchant(Enchantment enchantment) {
 		this.itemMeta.removeEnchant(enchantment);
 	}
 	
 	/**
-	 * 
+	 * Adds an unsafe enchantment to the Item.
 	 * @param enchantment
 	 * @param level
 	 */
@@ -78,7 +95,7 @@ public class Item {
 	}
 	
 	/**
-	 * 
+	 * Returns level of enchantment.
 	 * @param enchantment
 	 * @return
 	 */
@@ -87,7 +104,7 @@ public class Item {
 	}
 	
 	/**
-	 * 
+	 * Returns all the enchantments.
 	 * @return
 	 */
 	public Map<Enchantment, Integer> getEnchantments() {
@@ -95,7 +112,7 @@ public class Item {
 	}
 	
 	/**
-	 * 
+	 * Returns durability.
 	 * @return
 	 */
 	public int getDurability() {
@@ -103,7 +120,7 @@ public class Item {
 	}
 	
 	/**
-	 * 
+	 * Set the durability.
 	 * @param durability
 	 */
 	public void setDurability(int durability) {
@@ -112,7 +129,7 @@ public class Item {
 	}
 	
 	/**
-	 * 
+	 * Set the display name.
 	 * @param Set the displayname of an item.
 	 */
 	public void setName(String name) {
@@ -120,7 +137,7 @@ public class Item {
 	}
 	
 	/**
-	 * 
+	 * Add a lore. 
 	 * @param lore
 	 */
 	public void addLore(String lore) {
@@ -130,7 +147,7 @@ public class Item {
 	}
 	
 	/**
-	 * 
+	 * Returns name.
 	 * @return
 	 */
 	public String getName() {
@@ -138,7 +155,7 @@ public class Item {
 	}
 	
 	/**
-	 * 
+	 * Returns list of enchantments.
 	 * @return
 	 */
 	public Map<Enchantment, Integer> getEnchants() {
@@ -146,7 +163,7 @@ public class Item {
 	}
 	
 	/**
-	 * 
+	 * Returns list of lore.
 	 * @return
 	 */
 	public List<String> getLore() {
@@ -154,7 +171,7 @@ public class Item {
 	}
 	
 	/**
-	 * 
+	 * Returns true if Item has lore.
 	 * @return
 	 */
 	public boolean hasLore() {
@@ -162,15 +179,7 @@ public class Item {
 	}
 	
 	/**
-	 * 
-	 * @return
-	 */
-	public Material getType() {
-		return this.itemStack.getType();
-	}
-	
-	/**
-	 * 
+	 * Adds an ItemFlag.
 	 * @param itemFlag
 	 */
 	public void addItemFlag(ItemFlag itemFlag) {
@@ -178,11 +187,27 @@ public class Item {
 	}
 	
 	/**
-	 * 
+	 * Returns list of ItemFlag.
 	 * @return
 	 */
 	public Set<ItemFlag> getItemFlags() {
 		return this.itemMeta.getItemFlags();
+	}
+	
+	/**
+	 * Returns amount of items.
+	 * @return
+	 */
+	public int getAmount() {
+		return this.itemStack.getAmount();
+	}
+	
+	/**
+	 * Returns MaxStackSize.
+	 * @return
+	 */
+	public int getMaxStackSize() {
+		return this.itemStack.getMaxStackSize();
 	}
 	
 }

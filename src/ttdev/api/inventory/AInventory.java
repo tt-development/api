@@ -24,26 +24,29 @@ public class AInventory {
 	private boolean canceled;
 	
 	/**
-	 * 
+	 * Used to initialize an inventory.
 	 * @param name
 	 * @param size
 	 */
-	public AInventory(String name, int size) {
+	public AInventory(String name, int rows) {
 		/* Cancel the action */
 		InventoryUpdate iu = new InventoryUpdate(InventoryUpdateType.INVENTORY_CREATE, this);
 		InventoryUpdateEventInitiater.InventoryUpdate(iu);
 		if (this.canceled) {
 			this.canceled = false;
 			return;
-		}
+		} 
 		
 		this.canceled = false;
 		
-		this.inventory = Bukkit.createInventory(null, size, ChatColor.translateAlternateColorCodes('&', name));
+		this.inventory = Bukkit.createInventory(null, (rows * 9), ChatColor.translateAlternateColorCodes('&', name));
 		
 		InventoryEvent.addInventory(this);
 	}
 	
+	/**
+	 * Delete the inventory.
+	 */
 	public void delete() {
 		/* Cancel the action */
 		InventoryUpdate iu = new InventoryUpdate(InventoryUpdateType.INVENTORY_DELETE, this);
@@ -58,7 +61,7 @@ public class AInventory {
 	}
 	
 	/**
-	 * 
+	 * Set the last clicker. Not recommended to use.
 	 * @param player
 	 */
 	public void setLastClicker(Player player) {
@@ -74,7 +77,7 @@ public class AInventory {
 	}
 	
 	/**
-	 * 
+	 * Returns a Player who was the last one to click on the inventory.
 	 * @return
 	 */
 	public Player getLastClicker() {
@@ -82,7 +85,7 @@ public class AInventory {
 	}
 	
 	/**
-	 * 
+	 * Returns the Inventory.
 	 * @return
 	 */
 	public Inventory getInventory() {
@@ -90,7 +93,7 @@ public class AInventory {
 	}
 	
 	/**
-	 * 
+	 * Returns the inventory name.
 	 * @return
 	 */
 	public String getName() {
@@ -98,15 +101,31 @@ public class AInventory {
 	}
 	
 	/**
-	 * 
+	 * Returns the inventory rows.
 	 * @return
 	 */
-	public int getSize() {
-		return this.size;
+	public int getRows() {
+		return (this.size / 9);
 	}
 	
 	/**
-	 * 
+	 * Adds an item to the inventory.
+	 * @param item
+	 */
+	public void addItem(Item item) {
+		/* Cancel the action */
+		InventoryUpdate iu = new InventoryUpdate(InventoryUpdateType.SET_ITEM, this);
+		InventoryUpdateEventInitiater.InventoryUpdate(iu);
+		if (this.canceled) {
+			this.canceled = false;
+			return;
+		}
+		
+		this.inventory.addItem(item.getItemStack());
+	}
+	
+	/**
+	 * Adds an item to the selected slot of the anventory.
 	 * @param item
 	 * @param slot
 	 */
@@ -123,7 +142,7 @@ public class AInventory {
 	}
 	
 	/**
-	 * 
+	 * Removes an item from a slot.
 	 * @param slot
 	 */
 	public void removeItem(int slot) {
@@ -138,6 +157,9 @@ public class AInventory {
 		this.inventory.setItem(slot, null);
 	}
 	
+	/**
+	 * Removes all items from the inventory.
+	 */
 	public void clear() {
 		/* Cancel the action */
 		if (this.canceled) {
@@ -149,7 +171,7 @@ public class AInventory {
 	}
 	
 	/**
-	 * 
+	 * Checks if the inventory contains an item.
 	 * @param item
 	 * @return
 	 */
@@ -161,7 +183,7 @@ public class AInventory {
 	}
 	
 	/**
-	 * 
+	 * Opens the inventory for a Player.
 	 * @param player
 	 */
 	public void openInventory(Player player) {
@@ -177,7 +199,7 @@ public class AInventory {
 	}
 
 	/**
-	 * 	
+	 * Returns all the items that are in the inventory.
 	 * @return
 	 */
 	public ItemStack[] getItems() {
