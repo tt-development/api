@@ -2,6 +2,7 @@ package ttdev.api;
 
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
+import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import ttdev.api.configuration.APIConfiguration;
@@ -10,6 +11,7 @@ import ttdev.api.inventory.events.inventoryclick.InventoryClickEventInitiater;
 import ttdev.api.inventory.events.inventoryclick.InventoryListener;
 import ttdev.api.inventory.events.inventoryupdate.InventoryUpdateEventInitiater;
 import ttdev.api.inventory.events.inventoryupdate.InventoryUpdateListener;
+import ttdev.api.manager.Manager;
 import ttdev.api.redstone.event.RedstoneListener;
 import ttdev.api.redstone.event.RedstoneTriggerEventInitiater;
 
@@ -27,15 +29,21 @@ import ttdev.api.redstone.event.RedstoneTriggerEventInitiater;
 public class API extends JavaPlugin {
  
 	private static API singleton;
+	private static PluginManager pluginManager;
 	
 	
 	@Override
 	public void onEnable() {
 		singleton = this;
+		
+		pluginManager = Bukkit.getPluginManager();
 	}
 	
 	@Override
 	public void onDisable() {
+		
+		//Clear the perms.
+		Manager.clearPermissions();
 		
 	}
 	
@@ -45,6 +53,10 @@ public class API extends JavaPlugin {
 	 */
 	public static API getInstance() {
 		return singleton;
+	}
+	
+	public static PluginManager getPluginManager() {
+		return pluginManager;
 	}
 	
 	/**
@@ -69,32 +81,6 @@ public class API extends JavaPlugin {
 	 */
 	public static void registerEvent(InventoryUpdateListener listener) {
 		InventoryUpdateEventInitiater.registerEvent(listener);
-	}
-	
-	/**
-	 * Disable a plugin.
-	 * @param pluginName
-	 */
-	public static void disablePlugin(String pluginName) {
-		for (Plugin pl : Bukkit.getPluginManager().getPlugins()) {
-			if (pl.getName().equalsIgnoreCase(pluginName)) {
-				Bukkit.getPluginManager().disablePlugin(pl);
-				return;
-			}
-		}
-	}
-	
-	/**
-	 * Enable a plugin.
-	 * @param pluginName
-	 */
-	public static void enablePlugin(String pluginName) {
-		for (Plugin pl : Bukkit.getPluginManager().getPlugins()) {
-			if (pl.getName().equalsIgnoreCase(pluginName)) {
-				Bukkit.getPluginManager().enablePlugin(pl);
-				return;
-			}
-		}
 	}
 	
 	/**

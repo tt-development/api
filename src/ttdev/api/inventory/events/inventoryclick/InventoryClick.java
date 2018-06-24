@@ -37,7 +37,7 @@ public class InventoryClick {
 	 * 
 	 * @return
 	 */
-	public Player getWhoClick() {
+	public Player getWhoClicked() {
 		return this.whoClicked;
 	}
 	

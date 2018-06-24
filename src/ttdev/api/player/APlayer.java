@@ -97,5 +97,13 @@ class APlayer extends DataStore implements IPlayer {
 	public void removeItem(Item item) {
 		player.getInventory().remove(item.getItemStack());
 	}
+	
+	public boolean hasScoreboard() {
+		if (player.getScoreboard() == null) {
+			return false;
+		} else {
+			return true;
+		}
+	}
 
 }
