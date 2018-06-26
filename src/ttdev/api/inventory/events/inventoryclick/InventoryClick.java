@@ -2,7 +2,6 @@ package ttdev.api.inventory.events.inventoryclick;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
-
 import ttdev.api.inventory.AInventory;
 import ttdev.api.items.Item;
 

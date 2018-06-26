@@ -1,16 +1,16 @@
 package ttdev.api.items;
 
 
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class Item {
 
@@ -93,15 +93,19 @@ public class Item {
 	public Map<Enchantment, Integer> getEnchantments() {
 		return this.itemStack.getEnchantments();
 	}
-	
+
+	public int getAmount() {
+		return itemStack.getAmount();
+	}
+
 	/**
 	 * 
 	 * @return
 	 */
-	public int getDurability() {
+	public short getDurability() {
 		return this.itemStack.getDurability();
 	}
-	
+
 	/**
 	 * 
 	 * @param durability
@@ -184,5 +188,5 @@ public class Item {
 	public Set<ItemFlag> getItemFlags() {
 		return this.itemMeta.getItemFlags();
 	}
-	
+
 }

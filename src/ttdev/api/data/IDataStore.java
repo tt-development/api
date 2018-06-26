@@ -1,5 +1,10 @@
 package ttdev.api.data;
 
+import org.bukkit.configuration.file.FileConfiguration;
+
+import java.util.List;
+import java.util.function.Function;
+
 public interface IDataStore {
 
     /**
@@ -27,6 +32,10 @@ public interface IDataStore {
 
     Integer loadInteger(String path);
 
+    void saveShort(Short value, String path);
+
+    Short loadShort(String path);
+
     void saveDouble(Double value, String path);
 
     Double loadDouble(String path);
@@ -35,8 +44,20 @@ public interface IDataStore {
 
     Object loadObject(String path);
 
+    <T, R> void saveList(String path, List<T> values, Function<T, R> conversion);
+
+    <T> List<T> loadList(String path, Function<String, T> conversion);
+
     void save(IPreservable preservable);
 
     void load(IPreservable preservable);
+
+    /**
+     * Get the underlying configuration object associated with this
+     * data store. The only reason you would need to use this class woud be
+     * to access configuration methods data store doesn't include.
+     * @return
+     */
+    FileConfiguration getConfiguration();
 
 }

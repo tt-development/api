@@ -1,20 +1,17 @@
 package ttdev.api.data;
 
-import org.bukkit.configuration.file.FileConfiguration;
-
 public interface IPreservable {
 
     /**
      * An abstract method for saving custom objects.
-     * @param configuration
+     * @param dataStore
      */
-    void save(FileConfiguration configuration);
+    void save(DataStore dataStore);
 
     /**
      * An abstract method for loading custom objects.
-     * @param configuration
-     * @return
+     * @param dataStore
      */
-    Object load(FileConfiguration configuration);
+    void load(DataStore dataStore);
 
 }

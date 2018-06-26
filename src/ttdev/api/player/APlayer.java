@@ -20,13 +20,11 @@ class APlayer extends DataStore implements IPlayer {
     private Player player;
 
     APlayer(Player player) {
+        useIdentifier(player.getUniqueId().toString());
         this.player = player;
     }
 
-    /**
-     * Get the player reference associated with this wrapper.
-     * @return
-     */
+    @Override
     public Player player() {
         return player;
     }

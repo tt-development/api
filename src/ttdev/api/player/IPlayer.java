@@ -1,6 +1,7 @@
 package ttdev.api.player;
 
 import org.bukkit.Bukkit;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import ttdev.api.data.IDataStore;
@@ -10,6 +11,15 @@ import java.util.List;
 import java.util.UUID;
 
 public interface IPlayer extends IDataStore {
+
+    /**
+     * Create an instance of this interface using the provided command sender.
+     * @param sender
+     * @return
+     */
+    static IPlayer createInstance(CommandSender sender ) {
+        return new APlayer((Player) sender);
+    }
 
     /**
      * Create an instance of this interface using the provided player
@@ -29,6 +39,12 @@ public interface IPlayer extends IDataStore {
     static IPlayer createInstance(UUID uuid) {
         return new APlayer(Bukkit.getPlayer(uuid));
     }
+
+    /**
+     * Get the backing player reference of this object.
+     * @return
+     */
+    Player player();
 
     /**
      * Add an item to this players inventory if there's space available.
