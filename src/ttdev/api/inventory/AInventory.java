@@ -26,7 +26,7 @@ public class AInventory {
 	/**
 	 * Used to initialize an inventory.
 	 * @param name
-	 * @param size
+	 * @param rows
 	 */
 	public AInventory(String name, int rows) {
 		/* Cancel the action */

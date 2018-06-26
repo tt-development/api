@@ -43,9 +43,17 @@ public class InventoryClick {
 	
 	/**
 	 * 
+	 * @deprecated
 	 * @return
 	 */
 	public AInventory getPlayerInventory() {
+		return this.aInventory;
+	}
+	
+	/**
+	 * @return
+	 */
+	public AInventory getInventory() {
 		return this.aInventory;
 	}
 	

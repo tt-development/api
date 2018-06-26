@@ -155,14 +155,6 @@ public class Item {
 	}
 	
 	/**
-	 * Returns list of enchantments.
-	 * @return
-	 */
-	public Map<Enchantment, Integer> getEnchants() {
-		return this.itemMeta.getEnchants();
-	}
-	
-	/**
 	 * Returns list of lore.
 	 * @return
 	 */
@@ -187,6 +179,14 @@ public class Item {
 	}
 	
 	/**
+	 * Remove an ItemFlag.
+	 * @param itemFlag
+	 */
+	public void removeItemFlag(ItemFlag itemFlag) {
+		this.itemMeta.removeItemFlags(itemFlag);
+	}
+	
+	/**
 	 * Returns list of ItemFlag.
 	 * @return
 	 */
@@ -200,6 +200,10 @@ public class Item {
 	 */
 	public int getAmount() {
 		return this.itemStack.getAmount();
+	}
+	
+	public void setAmount(int amount) {
+		this.itemStack.setAmount(amount);
 	}
 	
 	/**
