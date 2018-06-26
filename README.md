@@ -8,11 +8,3 @@
 # Listeners:
 
 * InventoryListener - Sends events from clicks on all PlayerInventory classes.
-
-#Scoreboard
-
-To initialize a new scoreboard use
-```java
-String title = "MyScoreboard";
-AScoreboard scoreboard = new AScoreBoard(title);
-```
