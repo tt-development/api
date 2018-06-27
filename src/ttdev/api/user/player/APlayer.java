@@ -1,13 +1,11 @@
-package ttdev.api.player;
+package ttdev.api.user.player;
 
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import ttdev.api.data.DataStore;
-import ttdev.api.items.Item;
+import ttdev.api.general.data.DataStore;
+import ttdev.api.user.items.Item;
 
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -20,11 +18,13 @@ class APlayer extends DataStore implements IPlayer {
     private Player player;
 
     APlayer(Player player) {
-        useIdentifier(player.getUniqueId().toString());
         this.player = player;
     }
 
-    @Override
+    /**
+     * Get the player reference associated with this wrapper.
+     * @return
+     */
     public Player player() {
         return player;
     }
@@ -46,7 +46,21 @@ class APlayer extends DataStore implements IPlayer {
 
     @Override
     public void removeItem(Item item) {
-        player.getInventory().remove(item.getItemStack());
+        player.getInventory().removeItem(item.getItemStack());
+    }
+
+    @Override
+    public void removeItems(ItemStack... items) {
+        player.getInventory().removeItem(items);
+    }
+
+    @Override
+    public void removeItems(Item... items) {
+        ItemStack[] stackArray = new ItemStack[items.length];
+        for (int i = 0; i < stackArray.length; i++ ) {
+            stackArray[i] = items[i].getItemStack();
+        }
+        removeItems(stackArray);
     }
 
     @Override
@@ -63,8 +77,11 @@ class APlayer extends DataStore implements IPlayer {
 
     @Override
     public void giveItems(Item... items) {
-        Inventory inventory = player.getInventory();
-        Arrays.stream(items).map(Item::getItemStack).forEach(inventory::addItem);
+        ItemStack[] stackArray = new ItemStack[items.length];
+        for (int i = 0; i < stackArray.length; i++ ) {
+            stackArray[i] = items[i].getItemStack();
+        }
+        giveItems(stackArray);
     }
 
     @Override
@@ -72,17 +89,6 @@ class APlayer extends DataStore implements IPlayer {
         ItemStack[] itemArray = new ItemStack[itemStacks.size()];
         itemStacks.toArray(itemArray);
         player.getInventory().removeItem(itemArray);
-    }
-
-    @Override
-    public void removeItems(ItemStack... items) {
-        player.getInventory().removeItem(items);
-    }
-
-    @Override
-    public void removeItems(Item... items) {
-        Inventory inventory = player.getInventory();
-        Arrays.stream(items).map(Item::getItemStack).forEach(inventory::removeItem);
     }
 
     @Override
@@ -121,12 +127,20 @@ class APlayer extends DataStore implements IPlayer {
 
     @Override
     public boolean equals(APlayer player) {
-        return this.player.getUniqueId().equals(player.player().getUniqueId());
+        return player.player.getUniqueId().equals(this.player.getUniqueId());
     }
 
     @Override
     public boolean equals(Player player) {
         return this.player.getUniqueId().equals(player.getUniqueId());
     }
+
+    public boolean hasScoreboard() {
+		if (player.getScoreboard() == null) {
+			return false;
+		} else {
+			return true;
+		}
+	}
 
 }

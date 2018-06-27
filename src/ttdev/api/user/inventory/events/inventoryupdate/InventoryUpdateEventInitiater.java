@@ -1,4 +1,7 @@
-package ttdev.api.inventory.events.inventoryupdate;
+package ttdev.api.user.inventory.events.inventoryupdate;
+
+import ttdev.api.general.configuration.APIConfiguration;
+import ttdev.api.general.configuration.Status;
 
 import java.util.ArrayList;
 
@@ -11,6 +14,9 @@ public class InventoryUpdateEventInitiater {
 	}
 	
 	public static void InventoryUpdate(InventoryUpdate event) {
+		if (APIConfiguration.getInventoryUpdateStatus().equals(Status.DENIED)) {
+			return;
+		}
 		for (InventoryUpdateListener l : listeners) {
 			l.InventoryUpdateEvent(event);
 		}

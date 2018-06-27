@@ -1,9 +1,9 @@
-package ttdev.api.inventory.events.inventoryclick;
+package ttdev.api.user.inventory.events.inventoryclick;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
-import ttdev.api.inventory.AInventory;
-import ttdev.api.items.Item;
+import ttdev.api.user.inventory.AInventory;
+import ttdev.api.user.items.Item;
 
 public class InventoryClick {
 
@@ -36,15 +36,23 @@ public class InventoryClick {
 	 * 
 	 * @return
 	 */
-	public Player getWhoClick() {
+	public Player getWhoClicked() {
 		return this.whoClicked;
 	}
 	
 	/**
 	 * 
+	 * @deprecated
 	 * @return
 	 */
 	public AInventory getPlayerInventory() {
+		return this.aInventory;
+	}
+	
+	/**
+	 * @return
+	 */
+	public AInventory getInventory() {
 		return this.aInventory;
 	}
 	

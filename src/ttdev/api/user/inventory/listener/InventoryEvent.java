@@ -1,4 +1,4 @@
-package ttdev.api.inventory.listener;
+package ttdev.api.user.inventory.listener;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -6,10 +6,11 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import ttdev.api.API;
-import ttdev.api.inventory.AInventory;
-import ttdev.api.inventory.events.inventoryclick.InventoryClickEventInitiater;
-import ttdev.api.inventory.events.inventoryclick.InventoryClick;
-import ttdev.api.items.Item;
+import ttdev.api.user.inventory.AInventory;
+import ttdev.api.user.inventory.InventoryCommand;
+import ttdev.api.user.inventory.events.inventoryclick.InventoryClick;
+import ttdev.api.user.inventory.events.inventoryclick.InventoryClickEventInitiater;
+import ttdev.api.user.items.Item;
 
 import java.util.ArrayList;
 
@@ -36,6 +37,46 @@ public class InventoryEvent implements Listener {
 	public static ArrayList<AInventory> getInventories() {
 		return inventories;
 	}
+	
+	public static void runCommand(InventoryCommand command, String inventoryName, Item item, int slot) {
+		for (AInventory inv : inventories) {
+			if (inv.getName().equals(inventoryName)) {
+				switch (command) {
+				case DELETE:
+					inv.delete();
+					return;
+				case CLEAR:
+					inv.clear();
+					return;
+				case SET_ITEM:
+					inv.setItem(item, slot);
+				case REMOVE_ITEM:
+					inv.removeItem(slot);
+				}
+			}
+		}
+	}
+	
+	public static void runCommand(InventoryCommand command, int rows, Item item, int slot) {
+		for (AInventory inv : inventories) {
+			if (inv.getRows() == rows) {
+				switch (command) {
+				case DELETE:
+					inv.delete();
+					return;
+				case CLEAR:
+					inv.clear();
+					return;
+				case SET_ITEM:
+					inv.setItem(item, slot);
+				case REMOVE_ITEM:
+					inv.removeItem(slot);
+				}
+			}
+		}
+	}
+	
+	
 	
 	@EventHandler
 	public static void onInventoryClick(InventoryClickEvent e) {

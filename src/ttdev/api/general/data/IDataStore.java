@@ -1,4 +1,4 @@
-package ttdev.api.data;
+package ttdev.api.general.data;
 
 import org.bukkit.configuration.file.FileConfiguration;
 

@@ -1,4 +1,4 @@
-package ttdev.api.data;
+package ttdev.api.general.data;
 
 public interface IPreservable {
 

@@ -1,11 +1,11 @@
-package ttdev.api.player;
+package ttdev.api.user.player;
 
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import ttdev.api.data.IDataStore;
-import ttdev.api.items.Item;
+import ttdev.api.general.data.IDataStore;
+import ttdev.api.user.items.Item;
 
 import java.util.List;
 import java.util.UUID;
