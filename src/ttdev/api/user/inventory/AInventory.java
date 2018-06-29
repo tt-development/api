@@ -5,6 +5,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+
 import ttdev.api.user.inventory.events.inventoryupdate.InventoryUpdate;
 import ttdev.api.user.inventory.events.inventoryupdate.InventoryUpdateEventInitiater;
 import ttdev.api.user.inventory.events.inventoryupdate.InventoryUpdateType;
@@ -14,7 +15,6 @@ import ttdev.api.user.items.Item;
 
 public class AInventory {
 
-	private String name;
 	private int size;
 	
 	private Player lastClicker;
@@ -22,6 +22,7 @@ public class AInventory {
 	private Inventory inventory;
 	
 	private boolean canceled;
+	private boolean cancelClick;
 	
 	/**
 	 * Used to initialize an inventory.
@@ -38,6 +39,7 @@ public class AInventory {
 		} 
 		
 		this.canceled = false;
+		this.cancelClick = false;
 		
 		this.inventory = Bukkit.createInventory(null, (rows * 9), ChatColor.translateAlternateColorCodes('&', name));
 		
@@ -97,7 +99,7 @@ public class AInventory {
 	 * @return
 	 */
 	public String getName() {
-		return this.name;
+		return this.inventory.getName();
 	}
 	
 	/**
@@ -212,6 +214,14 @@ public class AInventory {
 	 */
 	public void setCanceled(boolean canceled) {
 		this.canceled = canceled;
+	}
+	
+	public void cancelClick() {
+		this.cancelClick = true;
+	}
+	
+	public boolean isCanceled() {
+		return this.cancelClick;
 	}
 	
 }

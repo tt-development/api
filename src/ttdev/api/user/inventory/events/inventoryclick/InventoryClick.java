@@ -112,4 +112,8 @@ public class InventoryClick {
 		return this.HotbarSlot;
 	}
 	
+	public void cancelAction() {
+		this.aInventory.cancelClick();
+	}
+	
 }

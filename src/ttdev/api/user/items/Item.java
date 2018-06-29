@@ -8,6 +8,7 @@ import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -41,6 +42,7 @@ public class Item {
 	 */
 	public Item(Material material) {
 		this.itemStack = new ItemStack(material);
+		this.itemMeta = this.itemStack.getItemMeta();
 	}
 	
 	/**
@@ -141,7 +143,12 @@ public class Item {
 	 * @param lore
 	 */
 	public void addLore(String lore) {
-		List<String> lores = this.itemMeta.getLore();
+		List<String> lores;
+		if (hasLore()) {
+			lores = this.itemMeta.getLore();
+		} else {
+			lores = new ArrayList<>();
+		}
 		lores.add(ChatColor.translateAlternateColorCodes('&', lore));
 		this.itemMeta.setLore(lores);
 	}

@@ -84,15 +84,29 @@ public class InventoryEvent implements Listener {
 		AInventory inv = null;
 		
 		for (int i=0; i < inventories.size(); i++) {
-			if (inventories.get(i).getInventory().equals(e.getInventory())) {
+			if (inventories.get(i).getInventory().equals(e.getClickedInventory())) {
 				inv = inventories.get(i);
 			}
+		}		
+		
+		if (inv == null) {
+			return;
+		}
+		if (e.getCurrentItem() == null) {
+			return;
+		}
+		if (e.getCurrentItem().getAmount() == 0) {
+			return;
 		}
 		
 		Item item = new Item(e.getCurrentItem());
 		
 		InventoryClick event = new InventoryClick(player, inv, item, e.isRightClick(), e.isLeftClick(), e.isShiftClick(), e.getSlot(), e.getClick(), e.getHotbarButton());
 		InventoryClickEventInitiater.InventoryClick(event);
+		
+		if (inv.isCanceled()) {
+			e.setCancelled(true);
+		}
 	}
 	
 	@EventHandler

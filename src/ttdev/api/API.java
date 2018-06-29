@@ -3,6 +3,7 @@ package ttdev.api;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
+
 import ttdev.api.bukkit.Manager;
 
 /**
@@ -27,6 +28,8 @@ public class API extends JavaPlugin {
 		singleton = this;
 		
 		pluginManager = Bukkit.getPluginManager();
+		
+		
 	}
 	
 	@Override
