@@ -14,7 +14,6 @@ import io.netty.channel.ChannelDuplexHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelPipeline;
 import io.netty.channel.ChannelPromise;
-import ttdev.api.bukkit.Manager;
 import ttdev.api.bukkit.packet.PacketType;
 import ttdev.api.bukkit.packet.event.PacketListener;
 import ttdev.api.bukkit.packet.event.PacketListenerEvent;
@@ -22,20 +21,12 @@ import ttdev.api.general.configuration.APIConfiguration;
 import ttdev.api.general.configuration.Status;
 
 public class PacketListenerInitiater implements Listener {
-
-	static {
-		new PacketListenerInitiater();
-	}
 	
-	private PacketListenerInitiater() {
-		Manager.registerEvent(this);
-	}
+	private static ArrayList<PacketListener> listeners = new ArrayList<>();
 	
 	/**
 	 * Listener handler
 	 */
-	private static ArrayList<PacketListener> listeners = new ArrayList<>();
-	
 	public static void registerEvent(PacketListener listener) {
 		listeners.add(listener);
 	}

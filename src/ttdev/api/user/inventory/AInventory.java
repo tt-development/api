@@ -1,5 +1,7 @@
 package ttdev.api.user.inventory;
 
+import java.util.ArrayList;
+
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -23,6 +25,8 @@ public class AInventory {
 	
 	private boolean canceled;
 	private boolean cancelClick;
+	
+	private ArrayList<Item> items;
 	
 	/**
 	 * Used to initialize an inventory.
@@ -123,6 +127,7 @@ public class AInventory {
 			return;
 		}
 		
+		this.items.add(item);
 		this.inventory.addItem(item.getItemStack());
 	}
 	
@@ -140,6 +145,7 @@ public class AInventory {
 			return;
 		}
 		
+		this.items.add(item);
 		this.inventory.setItem(slot, item.getItemStack());
 	}
 	
@@ -156,6 +162,7 @@ public class AInventory {
 			return;
 		}
 		
+		this.items.remove(new Item(this.inventory.getItem(slot)));
 		this.inventory.setItem(slot, null);
 	}
 	
@@ -169,6 +176,7 @@ public class AInventory {
 			return;
 		}
 		
+		this.items.clear();
 		this.inventory.clear();
 	}
 	
@@ -204,8 +212,28 @@ public class AInventory {
 	 * Returns all the items that are in the inventory.
 	 * @return
 	 */
-	public ItemStack[] getItems() {
+	public ItemStack[] getItemStacks() {
 		return this.inventory.getContents();
+	}
+	
+	/**
+	 * Returns all the items that are in the inventory.
+	 * @return
+	 */
+	public ArrayList<Item> getItems() {
+		return this.items;
+	}
+	
+	/**
+	 * Compare the inventory name to a string.
+	 * @param name
+	 * @return
+	 */
+	public boolean compareNameTo(String name) {
+		if (this.getName().equals(ChatColor.translateAlternateColorCodes('&', name))) {
+			return true;
+		}
+		return false;
 	}
 	
 	/**

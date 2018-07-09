@@ -18,6 +18,8 @@ public class Item {
 	private ItemStack itemStack;
 	private ItemMeta itemMeta;
 	
+	private int ID;
+	
 	/**
 	 * Create an instance of Item with an Item.
 	 * @param item
@@ -154,6 +156,14 @@ public class Item {
 	}
 	
 	/**
+	 * Set the lore.
+	 * @param lores
+	 */
+	public void setLore(List<String> lores) {
+		this.itemMeta.setLore(lores);
+	}
+	
+	/**
 	 * Returns name.
 	 * @return
 	 */
@@ -219,6 +229,22 @@ public class Item {
 	 */
 	public int getMaxStackSize() {
 		return this.itemStack.getMaxStackSize();
+	}
+	
+	/**
+	 * Set a custom Item ID.
+	 * @param ID
+	 */
+	public void setID(int ID) {
+		this.ID = ID;
+	}
+	
+	/**
+	 * Returns the item ID.
+	 * @return
+	 */
+	public int getID() {
+		return this.ID;
 	}
 	
 }
