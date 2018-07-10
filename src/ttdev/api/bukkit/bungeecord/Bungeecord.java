@@ -22,7 +22,7 @@ public class Bungeecord implements PluginMessageListener {
 	private Bungeecord() {
 		Bukkit.getServer().getMessenger().registerIncomingPluginChannel(API.getInstance(), "BungeeCord", this);
 	}
-
+	
 	@Override
 	public void onPluginMessageReceived(String channel, Player player, byte[] message) {
 		if (!channel.equals("BungeeCord")) {
@@ -31,7 +31,6 @@ public class Bungeecord implements PluginMessageListener {
 		//ByteArrayDataInput in = ByteStreams.newDataInput(message);
 		
 		//TODO Create custom Listener.
-		
 	}
 	
 	/**

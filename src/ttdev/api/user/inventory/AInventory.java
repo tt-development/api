@@ -8,6 +8,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
+import ttdev.api.APair;
 import ttdev.api.user.inventory.events.inventoryupdate.InventoryUpdate;
 import ttdev.api.user.inventory.events.inventoryupdate.InventoryUpdateEventInitiater;
 import ttdev.api.user.inventory.events.inventoryupdate.InventoryUpdateType;
@@ -26,7 +27,7 @@ public class AInventory {
 	private boolean canceled;
 	private boolean cancelClick;
 	
-	private ArrayList<Item> items;
+	private ArrayList<APair<Item, Integer>> items = new ArrayList<>();
 	
 	/**
 	 * Used to initialize an inventory.
@@ -127,7 +128,7 @@ public class AInventory {
 			return;
 		}
 		
-		this.items.add(item);
+		this.items.add(new APair<Item, Integer>(item, null));
 		this.inventory.addItem(item.getItemStack());
 	}
 	
@@ -144,8 +145,8 @@ public class AInventory {
 			this.canceled = false;
 			return;
 		}
-		
-		this.items.add(item);
+
+		items.add(new APair<Item, Integer>(item, slot));
 		this.inventory.setItem(slot, item.getItemStack());
 	}
 	
@@ -162,8 +163,24 @@ public class AInventory {
 			return;
 		}
 		
-		this.items.remove(new Item(this.inventory.getItem(slot)));
+		for (int i=0; i < this.items.size(); i++) {
+			APair<Item, Integer> tmp = this.items.get(i);
+			if (tmp.getValue() == slot) {
+				this.items.remove(i);
+				break;
+			}
+		}
 		this.inventory.setItem(slot, null);
+	}
+	
+	public Item getItem(int slot) {
+		for (int i=0; i < this.items.size(); i++) {
+			APair<Item, Integer> tmp = this.items.get(i);
+			if (tmp.getValue() == slot) {
+				return tmp.getKey();
+			}
+		}
+		return null;
 	}
 	
 	/**
@@ -220,7 +237,7 @@ public class AInventory {
 	 * Returns all the items that are in the inventory.
 	 * @return
 	 */
-	public ArrayList<Item> getItems() {
+	public ArrayList<APair<Item, Integer>> getItems() {
 		return this.items;
 	}
 	
