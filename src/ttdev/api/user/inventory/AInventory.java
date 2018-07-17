@@ -1,34 +1,36 @@
 package ttdev.api.user.inventory;
 
-import java.util.ArrayList;
-
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-
 import ttdev.api.APair;
 import ttdev.api.user.inventory.events.inventoryupdate.InventoryUpdate;
 import ttdev.api.user.inventory.events.inventoryupdate.InventoryUpdateEventInitiater;
 import ttdev.api.user.inventory.events.inventoryupdate.InventoryUpdateType;
+import ttdev.api.user.inventory.fill.Filler;
 import ttdev.api.user.inventory.listener.InventoryEvent;
 import ttdev.api.user.items.Item;
+
+import java.util.ArrayList;
 
 
 public class AInventory {
 
+	private String name;
 	private int size;
-	
+	private int rows;
+
 	private Player lastClicker;
-	
+
 	private Inventory inventory;
-	
+
 	private boolean canceled;
 	private boolean cancelClick;
-	
+
 	private ArrayList<APair<Item, Integer>> items = new ArrayList<>();
-	
+
 	/**
 	 * Used to initialize an inventory.
 	 * @param name
@@ -41,16 +43,24 @@ public class AInventory {
 		if (this.canceled) {
 			this.canceled = false;
 			return;
-		} 
-		
+		}
+
 		this.canceled = false;
 		this.cancelClick = false;
-		
-		this.inventory = Bukkit.createInventory(null, (rows * 9), ChatColor.translateAlternateColorCodes('&', name));
-		
+
+        this.name = ChatColor.translateAlternateColorCodes('&', name);
+
 		InventoryEvent.addInventory(this);
 	}
-	
+
+	public void show(Player player) {
+		/* Create inventory and add items */
+		inventory = Bukkit.createInventory(player, size, getName());
+		items.forEach((mi) -> inventory.setItem(mi.getValue(), mi.getKey().getItemStack()));
+
+		player.openInventory(inventory);
+	}
+
 	/**
 	 * Delete the inventory.
 	 */
@@ -66,7 +76,7 @@ public class AInventory {
 		this.inventory = null;
 		InventoryEvent.removeInventory(this);
 	}
-	
+
 	/**
 	 * Set the last clicker. Not recommended to use.
 	 * @param player
@@ -79,10 +89,10 @@ public class AInventory {
 			this.canceled = false;
 			return;
 		}
-		
+
 		this.lastClicker = player;
 	}
-	
+
 	/**
 	 * Returns a Player who was the last one to click on the inventory.
 	 * @return
@@ -90,7 +100,7 @@ public class AInventory {
 	public Player getLastClicker() {
 		return lastClicker;
 	}
-	
+
 	/**
 	 * Returns the Inventory.
 	 * @return
@@ -98,15 +108,19 @@ public class AInventory {
 	public Inventory getInventory() {
 		return this.inventory;
 	}
-	
+
 	/**
 	 * Returns the inventory name.
 	 * @return
 	 */
 	public String getName() {
-		return this.inventory.getName();
+		return name;
 	}
-	
+
+	public void setName(String name){
+		this.name=name;
+	}
+
 	/**
 	 * Returns the inventory rows.
 	 * @return
@@ -114,7 +128,14 @@ public class AInventory {
 	public int getRows() {
 		return (this.size / 9);
 	}
-	
+
+	/**
+	 * Sets the number of rows in this inventory.
+	 */
+	public void setRows(int rows){
+		this.rows*=9;
+	}
+
 	/**
 	 * Adds an item to the inventory.
 	 * @param item
@@ -127,11 +148,11 @@ public class AInventory {
 			this.canceled = false;
 			return;
 		}
-		
+
 		this.items.add(new APair<Item, Integer>(item, null));
 		this.inventory.addItem(item.getItemStack());
 	}
-	
+
 	/**
 	 * Adds an item to the selected slot of the anventory.
 	 * @param item
@@ -149,7 +170,7 @@ public class AInventory {
 		items.add(new APair<Item, Integer>(item, slot));
 		this.inventory.setItem(slot, item.getItemStack());
 	}
-	
+
 	/**
 	 * Removes an item from a slot.
 	 * @param slot
@@ -162,7 +183,7 @@ public class AInventory {
 			this.canceled = false;
 			return;
 		}
-		
+
 		for (int i=0; i < this.items.size(); i++) {
 			APair<Item, Integer> tmp = this.items.get(i);
 			if (tmp.getValue() == slot) {
@@ -172,7 +193,7 @@ public class AInventory {
 		}
 		this.inventory.setItem(slot, null);
 	}
-	
+
 	public Item getItem(int slot) {
 		for (int i=0; i < this.items.size(); i++) {
 			APair<Item, Integer> tmp = this.items.get(i);
@@ -182,7 +203,7 @@ public class AInventory {
 		}
 		return null;
 	}
-	
+
 	/**
 	 * Removes all items from the inventory.
 	 */
@@ -192,11 +213,18 @@ public class AInventory {
 			this.canceled = false;
 			return;
 		}
-		
+
 		this.items.clear();
 		this.inventory.clear();
 	}
-	
+
+	/**
+	 * Fills the inventory with the specified <code>Filler</code>
+	 */
+	public void fill(Filler filler){
+		filler.fill(this);
+	}
+
 	/**
 	 * Checks if the inventory contains an item.
 	 * @param item
@@ -208,7 +236,7 @@ public class AInventory {
 		}
 		return false;
 	}
-	
+
 	/**
 	 * Opens the inventory for a Player.
 	 * @param player
@@ -221,7 +249,7 @@ public class AInventory {
 			this.canceled = false;
 			return;
 		}
-		
+
 		player.openInventory(this.inventory);
 	}
 
@@ -232,7 +260,7 @@ public class AInventory {
 	public ItemStack[] getItemStacks() {
 		return this.inventory.getContents();
 	}
-	
+
 	/**
 	 * Returns all the items that are in the inventory.
 	 * @return
@@ -240,7 +268,7 @@ public class AInventory {
 	public ArrayList<APair<Item, Integer>> getItems() {
 		return this.items;
 	}
-	
+
 	/**
 	 * Compare the inventory name to a string.
 	 * @param name
@@ -252,7 +280,7 @@ public class AInventory {
 		}
 		return false;
 	}
-	
+
 	/**
 	 * Cancels the next action.
 	 * @param canceled
@@ -260,13 +288,13 @@ public class AInventory {
 	public void setCanceled(boolean canceled) {
 		this.canceled = canceled;
 	}
-	
+
 	public void cancelClick() {
 		this.cancelClick = true;
 	}
-	
+
 	public boolean isCanceled() {
 		return this.cancelClick;
 	}
-	
+
 }

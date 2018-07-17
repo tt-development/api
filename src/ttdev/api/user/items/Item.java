@@ -71,7 +71,20 @@ public class Item {
 	public Material getMaterial() {
 		return this.itemStack.getType();
 	}
-	
+
+	/**
+	 * Adds enchant effect to item.
+	 */
+	public void setMagic(boolean value) {
+		if (value) {
+			addEnchant(Enchantment.ARROW_DAMAGE, 1);
+			addItemFlag(ItemFlag.HIDE_ENCHANTS);
+		} else {
+			removeEnchant(Enchantment.ARROW_DAMAGE);
+			removeItemFlag(ItemFlag.HIDE_ENCHANTS);
+		}
+	}
+
 	/**
 	 * Adds an enchantment to the Item.
 	 * @param enchantment
@@ -80,7 +93,7 @@ public class Item {
 	public void addEnchant(Enchantment enchantment, int level) {
 		this.itemMeta.addEnchant(enchantment, level, false);
 	}
-	
+
 	/**
 	 * Removes an enchantment from the Item.
 	 * @param enchantment
@@ -114,7 +127,14 @@ public class Item {
 	public Map<Enchantment, Integer> getEnchantments() {
 		return this.itemStack.getEnchantments();
 	}
-	
+
+	/**
+	 * Set the material of this item.
+	 */
+	public void setMaterial(Material material){
+		itemStack.setType(material);
+	}
+
 	/**
 	 * Returns durability.
 	 * @return
@@ -193,6 +213,21 @@ public class Item {
 	 */
 	public void addItemFlag(ItemFlag itemFlag) {
 		this.itemMeta.addItemFlags(itemFlag);
+	}
+
+	/**
+	 * Adds multiple item flags.
+	 */
+	public final void addItemFlags(Set<ItemFlag> flags) {
+		ItemFlag[] flagArray = new ItemFlag[flags.size()];
+		addItemFlags(flags.toArray(flagArray));
+	}
+
+	/**
+	 * Adds multiple item flags.
+	 */
+	public final void addItemFlags(ItemFlag... flags) {
+		itemMeta.addItemFlags(flags);
 	}
 	
 	/**
