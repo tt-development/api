@@ -25,6 +25,7 @@ public class API extends JavaPlugin {
 	@Override
 	public void onEnable() {
 		singleton = this;
+		//Test
 		
 		pluginManager = Bukkit.getPluginManager();
 		
