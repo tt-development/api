@@ -32,6 +32,7 @@ public class API extends JavaPlugin {
 		if (mode.equals(APIMode.LIVE)) {
 			PluginUpdater.startTimer();
 		}
+		System.out.println("Test.");
 	}
 	
 	/**
