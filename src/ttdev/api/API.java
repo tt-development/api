@@ -25,7 +25,6 @@ public class API extends JavaPlugin {
 	@Override
 	public void onEnable() {
 		singleton = this;
-		//Test
 		
 		pluginManager = Bukkit.getPluginManager();
 		
@@ -33,6 +32,8 @@ public class API extends JavaPlugin {
 		if (mode.equals(APIMode.LIVE)) {
 			PluginUpdater.startTimer();
 		}
+		
+		System.out.print("Just a test.");
 	}
 	
 	/**
