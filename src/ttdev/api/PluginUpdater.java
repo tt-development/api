@@ -18,6 +18,7 @@ public class PluginUpdater {
         new BukkitRunnable() {
             @Override
             public void run() {
+            	System.out.println("Checking for the latest version of: API");
             	update();
             }
             
