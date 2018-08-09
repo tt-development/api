@@ -36,6 +36,10 @@ public interface IDataStore {
 
     Short loadShort(String path);
 
+    void saveLong(Long value, String path);
+
+    long loadLong(String path);
+
     void saveDouble(Double value, String path);
 
     Double loadDouble(String path);

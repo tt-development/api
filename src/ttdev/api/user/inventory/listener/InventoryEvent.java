@@ -84,7 +84,7 @@ public class InventoryEvent implements Listener {
 		AInventory inv = null;
 		
 		for (int i=0; i < inventories.size(); i++) {
-			if (inventories.get(i).getInventory().equals(e.getClickedInventory())) {
+			if (inventories.get(i).getInventory().equals(e.getInventory())) {
 				inv = inventories.get(i);
 			}
 		}		

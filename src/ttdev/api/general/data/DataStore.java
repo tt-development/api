@@ -75,6 +75,17 @@ public class DataStore implements IDataStore {
     }
 
     @Override
+    public void saveLong(Long value, String path) {
+        configuration.set(path, value);
+        saveConfiguration();
+    }
+
+    @Override
+    public long loadLong(String path) {
+        return (long) configuration.get(path);
+    }
+
+    @Override
     public void saveDouble(Double value, String path) {
         configuration.set(identifier + pathDelimiter + path, value);
         saveConfiguration();
