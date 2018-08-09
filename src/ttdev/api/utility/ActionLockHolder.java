@@ -1,6 +1,7 @@
 package ttdev.api.utility;
 
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 import ttdev.api.API;
 import ttdev.api.general.data.DataStore;
@@ -13,10 +14,10 @@ public class ActionLockHolder {
 
     private static List<ActionLock> actionLocks = new ArrayList<>();
 
-    public static void loadLocks(){
+    public static void loadLocks(JavaPlugin plugin){
         while (true) {
             ActionLock actionLock = new ActionLock();
-            DataStore dataStore = new DataStore(API.getInstance().getDataFolder().getAbsolutePath());
+            DataStore dataStore = new DataStore(plugin.getDataFolder().getAbsolutePath());
             if (!actionLock.load(dataStore)) {
                 break;
             }
