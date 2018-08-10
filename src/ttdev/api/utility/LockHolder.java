@@ -41,6 +41,15 @@ public class LockHolder {
                 && lock.getAction().equals(action));
     }
 
+    public static Lock getLock(Player player, Object action) {
+        UUID uuid = player.getUniqueId();
+        return locks.stream()
+                .filter(lock -> lock.getPlayerUUID().equals(uuid))
+                .filter(lock -> lock.getAction().equals(action))
+                .findAny()
+                .orElse(null);
+    }
+
     public static void addLock(Lock lock) {
         locks.add(lock);
     }
