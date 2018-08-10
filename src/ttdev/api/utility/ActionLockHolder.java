@@ -2,8 +2,6 @@ package ttdev.api.utility;
 
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.scheduler.BukkitRunnable;
-import ttdev.api.API;
 import ttdev.api.general.data.DataStore;
 
 import java.util.ArrayList;
@@ -15,18 +13,19 @@ public class ActionLockHolder {
     private static List<ActionLock> actionLocks = new ArrayList<>();
 
     public static void loadLocks(JavaPlugin plugin) {
-        DataStore dataStore = new DataStore(plugin.getDataFolder().getPath() + "/lock-info.yml");
+        DataStore dataStore = new DataStore(plugin.getDataFolder().getPath() + "/lock-data.yml");
         int lockCount = dataStore.loadInteger("lock-count");
 
         /* Load all ActionLock's */
         for (int i = 0; i < lockCount; i++) {
             ActionLock lock = new ActionLock();
             lock.load(dataStore);
+            actionLocks.add(lock);
         }
     }
 
     public static void saveLocks(JavaPlugin plugin) {
-        DataStore dataStore = new DataStore(plugin.getDataFolder().getPath() + "/lock-info.yml");
+        DataStore dataStore = new DataStore(plugin.getDataFolder().getPath() + "/lock-data.yml");
         dataStore.saveInteger(actionLocks.size(), "lock-count");
         actionLocks.forEach(lock -> lock.save(dataStore));
     }
@@ -36,21 +35,14 @@ public class ActionLockHolder {
         return actionLocks.stream().anyMatch(lock -> lock.getPlayerUUID().equals(uuid));
     }
 
-    public static boolean hasLock(Player player, LockableAction lockableAction) {
+    public static boolean hasLock(Player player, Object action) {
         UUID uuid = player.getUniqueId();
         return actionLocks.stream().anyMatch(lock -> lock.getPlayerUUID().equals(uuid)
-                && lock.getLockableAction().equals(lockableAction));
+                && lock.getAction().equals(action));
     }
 
     public static void addLock(ActionLock lock) {
         actionLocks.add(lock);
-
-        new BukkitRunnable() {
-            @Override
-            public void run() {
-                actionLocks.remove(lock);
-            }
-        }.runTaskLater(API.getInstance(), (lock.getTime() / 1000) * 20);
     }
 
     public static void removeLock(ActionLock lock) {
