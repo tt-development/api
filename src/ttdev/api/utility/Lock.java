@@ -10,26 +10,26 @@ import ttdev.api.general.data.IPreservable;
 
 import java.util.UUID;
 
-public class ActionLock implements IPreservable {
+public class Lock implements IPreservable {
 
     private static int nextLockID = 0;
 
     private UUID uuid;
     private Object action;
-    private volatile long seconds;
+    private Time time;
     private int lockID;
 
     /* This default constructor is required for an IPreservable object.
      * It serves the same function as a Serializable object */
-    public ActionLock() {
+    public Lock() {
 
     }
 
-    public ActionLock(Player player, Object action, long seconds) {
+    public Lock(Player player, Object action, Lock.Time time) {
         lockID = nextLockID++;
 
         this.uuid = player.getUniqueId();
-        this.seconds = seconds;
+        this.time = time;
 
         startTimer();
     }
@@ -38,12 +38,13 @@ public class ActionLock implements IPreservable {
         new BukkitRunnable() {
             @Override
             public void run() {
-                if (ActionLock.this.seconds < 1) {
-                    ActionLockHolder.removeLock(ActionLock.this);
+                if (time.getTime(TimeUnit.SECONDS) < 1) {
+                    LockHolder.removeLock(Lock.this);
                     this.cancel();
                 }
-                ActionLock.this.seconds--;
-                System.out.println("Seconds is now: " + ActionLock.this.seconds);
+
+                time.subtractTime(TimeUnit.SECONDS, 1);
+
             }
         }.runTaskTimer(API.getInstance(), 20, 20);
     }
@@ -60,8 +61,8 @@ public class ActionLock implements IPreservable {
         return action;
     }
 
-    public long getTime() {
-        return seconds;
+    public Time getTime() {
+        return time;
     }
 
     public int getLockID() {
@@ -72,7 +73,7 @@ public class ActionLock implements IPreservable {
     public boolean save(DataStore dataStore) {
         dataStore.useIdentifier(Integer.toString(lockID));
         dataStore.saveString(uuid.toString(), "uuid");
-        dataStore.saveLong(seconds, "seconds");
+        dataStore.saveLong(time.getTime(TimeUnit.SECONDS), "time");
         dataStore.saveString(action.toString(), "action");
 
         return true;
@@ -91,12 +92,63 @@ public class ActionLock implements IPreservable {
             dataStore.useIdentifier(key);
             lockID = Integer.parseInt(key);
             uuid = UUID.fromString(dataStore.loadString("uuid"));
-            seconds = dataStore.loadLong("seconds");
+            time = new Time(TimeUnit.SECONDS, dataStore.loadLong("time"));
             action = dataStore.loadString("action");
         }
 
         startTimer();
 
         return true;
+    }
+
+    public enum TimeUnit {
+        SECONDS, MINUTES, HOURS, DAYS
+    }
+
+    public static class Time {
+
+        private long time;
+
+        public Time(TimeUnit timeUnit, long time) {
+            switch (timeUnit) {
+                case DAYS:
+                    this.time = time * 60 * 60 * 24;
+                    break;
+                case HOURS:
+                    this.time = time * 60 * 60;
+                    break;
+                case MINUTES:
+                    this.time = time * 60;
+                default:
+                    this.time = time;
+            }
+        }
+
+        public long getTime(TimeUnit timeUnit) {
+            switch (timeUnit) {
+                case DAYS:
+                    return time / 60 / 60 / 24;
+                case HOURS:
+                    return time / 60 / 60;
+                case MINUTES:
+                    return time / 60;
+                default:
+                    return time;
+            }
+        }
+
+        public long subtractTime(TimeUnit timeUnit, long amount) {
+            switch (timeUnit) {
+                case DAYS:
+                    return time -= time / 60 / 60 / 24;
+                case HOURS:
+                    return time -= time / 60 / 60;
+                case MINUTES:
+                    return time -= time / 60;
+                default:
+                    return time -= time;
+            }
+        }
+
     }
 }

@@ -8,48 +8,48 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class ActionLockHolder {
+public class LockHolder {
 
-    private static List<ActionLock> actionLocks = new ArrayList<>();
+    private static List<Lock> locks = new ArrayList<>();
 
     public static void loadLocks(JavaPlugin plugin) {
         DataStore dataStore = new DataStore(plugin.getDataFolder().getPath() + "/lock-data.yml");
         int lockCount = dataStore.loadInteger("lock-count");
 
-        /* Load all ActionLock's */
+        /* Load all Lock's */
         for (int i = 0; i < lockCount; i++) {
-            ActionLock lock = new ActionLock();
+            Lock lock = new Lock();
             lock.load(dataStore);
-            actionLocks.add(lock);
+            locks.add(lock);
         }
     }
 
     public static void saveLocks(JavaPlugin plugin) {
         DataStore dataStore = new DataStore(plugin.getDataFolder().getPath() + "/lock-data.yml");
-        dataStore.saveInteger(actionLocks.size(), "lock-count");
-        actionLocks.forEach(lock -> lock.save(dataStore));
+        dataStore.saveInteger(locks.size(), "lock-count");
+        locks.forEach(lock -> lock.save(dataStore));
     }
 
     public static boolean hasLock(Player player) {
         UUID uuid = player.getUniqueId();
-        return actionLocks.stream().anyMatch(lock -> lock.getPlayerUUID().equals(uuid));
+        return locks.stream().anyMatch(lock -> lock.getPlayerUUID().equals(uuid));
     }
 
     public static boolean hasLock(Player player, Object action) {
         UUID uuid = player.getUniqueId();
-        return actionLocks.stream().anyMatch(lock -> lock.getPlayerUUID().equals(uuid)
+        return locks.stream().anyMatch(lock -> lock.getPlayerUUID().equals(uuid)
                 && lock.getAction().equals(action));
     }
 
-    public static void addLock(ActionLock lock) {
-        actionLocks.add(lock);
+    public static void addLock(Lock lock) {
+        locks.add(lock);
     }
 
-    public static void removeLock(ActionLock lock) {
-        actionLocks.remove(lock);
+    public static void removeLock(Lock lock) {
+        locks.remove(lock);
     }
 
-    public static List<ActionLock> getLocks() {
-        return actionLocks;
+    public static List<Lock> getLocks() {
+        return locks;
     }
 }
