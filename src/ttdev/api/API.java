@@ -3,7 +3,6 @@ package ttdev.api;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
-import ttdev.api.utility.ActionLockHolder;
 
 /**
  * Spigot API for minecraft 1.8 - 1.12. Developed by T&T development.
@@ -34,7 +33,6 @@ public class API extends JavaPlugin {
 			PluginUpdater.startTimer();
 		}
 
-		ActionLockHolder.loadLocks();
 	}
 	
 	/**
