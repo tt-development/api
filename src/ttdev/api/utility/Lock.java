@@ -8,6 +8,8 @@ import ttdev.api.API;
 import ttdev.api.general.data.DataStore;
 import ttdev.api.general.data.IPreservable;
 
+import java.time.Duration;
+import java.time.temporal.ChronoUnit;
 import java.util.UUID;
 
 public class Lock implements IPreservable {
@@ -38,12 +40,12 @@ public class Lock implements IPreservable {
         new BukkitRunnable() {
             @Override
             public void run() {
-                if (time.getTime(TimeUnit.SECONDS) < 1) {
+                if (time.getTime(ChronoUnit.SECONDS) < 1) {
                     LockHolder.removeLock(Lock.this);
                     this.cancel();
                 }
 
-                time.subtractTime(TimeUnit.SECONDS, 1);
+                time.subtractTime(ChronoUnit.SECONDS, 1);
 
             }
         }.runTaskTimer(API.getInstance(), 20, 20);
@@ -65,8 +67,8 @@ public class Lock implements IPreservable {
         return time;
     }
 
-    public long getTime(TimeUnit timeUnit){
-        return time.getTime(timeUnit);
+    public long getTime(ChronoUnit chronoUnit) {
+        return time.getTime(chronoUnit);
     }
 
     public int getLockID() {
@@ -77,7 +79,7 @@ public class Lock implements IPreservable {
     public boolean save(DataStore dataStore) {
         dataStore.useIdentifier(Integer.toString(lockID));
         dataStore.saveString(uuid.toString(), "uuid");
-        dataStore.saveLong(time.getTime(TimeUnit.SECONDS), "time");
+        dataStore.saveLong(time.getTime(ChronoUnit.SECONDS), "time");
         dataStore.saveString(action.toString(), "action");
 
         return true;
@@ -96,7 +98,7 @@ public class Lock implements IPreservable {
             dataStore.useIdentifier(key);
             lockID = Integer.parseInt(key);
             uuid = UUID.fromString(dataStore.loadString("uuid"));
-            time = new Time(TimeUnit.SECONDS, dataStore.loadLong("time"));
+            time = new Time(ChronoUnit.SECONDS, dataStore.loadLong("time"));
             action = dataStore.loadString("action");
         }
 
@@ -105,53 +107,20 @@ public class Lock implements IPreservable {
         return true;
     }
 
-    public enum TimeUnit {
-        SECONDS, MINUTES, HOURS, DAYS
-    }
-
     public static class Time {
 
-        private long time;
+        private long time; // Time in seconds
 
-        public Time(TimeUnit timeUnit, long time) {
-            switch (timeUnit) {
-                case DAYS:
-                    this.time = time * 60 * 60 * 24;
-                    break;
-                case HOURS:
-                    this.time = time * 60 * 60;
-                    break;
-                case MINUTES:
-                    this.time = time * 60;
-                default:
-                    this.time = time;
-            }
+        public Time(ChronoUnit chronoUnit, long time) {
+            this.time = Duration.of(time, chronoUnit).get(ChronoUnit.SECONDS);
         }
 
-        public long getTime(TimeUnit timeUnit) {
-            switch (timeUnit) {
-                case DAYS:
-                    return time / 60 / 60 / 24;
-                case HOURS:
-                    return time / 60 / 60;
-                case MINUTES:
-                    return time / 60;
-                default:
-                    return time;
-            }
+        public long getTime(ChronoUnit chronoUnit) {
+            return Duration.of(time, chronoUnit).get(chronoUnit);
         }
 
-        public long subtractTime(TimeUnit timeUnit, long amount) {
-            switch (timeUnit) {
-                case DAYS:
-                    return time -= time / 60 / 60 / 24;
-                case HOURS:
-                    return time -= time / 60 / 60;
-                case MINUTES:
-                    return time -= time / 60;
-                default:
-                    return time -= time;
-            }
+        public long subtractTime(ChronoUnit chronoUnit, long amount) {
+            return time -= Duration.of(amount, chronoUnit).get(ChronoUnit.SECONDS);
         }
 
     }
