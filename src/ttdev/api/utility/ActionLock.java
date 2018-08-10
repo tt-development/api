@@ -18,6 +18,8 @@ public class ActionLock implements IPreservable {
     private long time;
     private int lockID;
 
+    /* This default constructor is required for an IPreservable object.
+    * It serves the same function as a Serializable object */
     public ActionLock() {
 
     }
@@ -52,6 +54,7 @@ public class ActionLock implements IPreservable {
 
     @Override
     public boolean save(DataStore dataStore) {
+        dataStore.useFile("lock-data.yml");
         dataStore.useIdentifier(Integer.toString(lockID));
         dataStore.saveString(uuid.toString(), "uuid");
         dataStore.saveLong(time, "time");
@@ -67,6 +70,7 @@ public class ActionLock implements IPreservable {
 
     @Override
     public boolean load(DataStore dataStore) {
+        dataStore.useFile("lock-data.yml");
         FileConfiguration configuration = dataStore.getConfiguration();
         for (String key : configuration.getKeys(false)) {
             dataStore.useIdentifier(key);

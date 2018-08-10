@@ -14,15 +14,21 @@ public class ActionLockHolder {
 
     private static List<ActionLock> actionLocks = new ArrayList<>();
 
-    public static void loadLocks(JavaPlugin plugin){
-        while (true) {
-            ActionLock actionLock = new ActionLock();
-            DataStore dataStore = new DataStore(plugin.getDataFolder().getAbsolutePath());
-            if (!actionLock.load(dataStore)) {
-                break;
-            }
-            actionLocks.add(actionLock);
+    public static void loadLocks(JavaPlugin plugin) {
+        DataStore dataStore = new DataStore(plugin.getDataFolder().getPath() + "/lock-info.yml");
+        int lockCount = dataStore.loadInteger("lock-count");
+
+        /* Load all ActionLock's */
+        for (int i = 0; i < lockCount; i++) {
+            ActionLock lock = new ActionLock();
+            lock.load(dataStore);
         }
+    }
+
+    public static void saveLocks(JavaPlugin plugin) {
+        DataStore dataStore = new DataStore(plugin.getDataFolder().getPath() + "/lock-info.yml");
+        dataStore.saveInteger(actionLocks.size(), "lock-count");
+        actionLocks.forEach(lock -> lock.save(dataStore));
     }
 
     public static boolean hasLock(Player player) {
@@ -36,19 +42,19 @@ public class ActionLockHolder {
                 && lock.getLockableAction().equals(lockableAction));
     }
 
-    public static void addLock(ActionLock actionLock) {
-        actionLocks.add(actionLock);
+    public static void addLock(ActionLock lock) {
+        actionLocks.add(lock);
 
         new BukkitRunnable() {
             @Override
             public void run() {
-                actionLocks.remove(actionLock);
+                actionLocks.remove(lock);
             }
-        }.runTaskLater(API.getInstance(), (actionLock.getTime() / 1000) * 20);
+        }.runTaskLater(API.getInstance(), (lock.getTime() / 1000) * 20);
     }
 
-    public static void removeLock(ActionLock actionLock) {
-        actionLocks.remove(actionLock);
+    public static void removeLock(ActionLock lock) {
+        actionLocks.remove(lock);
     }
 
     public static List<ActionLock> getLocks() {
