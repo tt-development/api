@@ -65,6 +65,10 @@ public class Lock implements IPreservable {
         return time;
     }
 
+    public long getTime(TimeUnit timeUnit){
+        return time.getTime(timeUnit);
+    }
+
     public int getLockID() {
         return lockID;
     }
