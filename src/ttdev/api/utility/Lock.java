@@ -31,6 +31,7 @@ public class Lock implements IPreservable {
         lockID = nextLockID++;
 
         this.uuid = player.getUniqueId();
+        this.action = action;
         this.time = time;
 
         startTimer();
@@ -40,12 +41,12 @@ public class Lock implements IPreservable {
         new BukkitRunnable() {
             @Override
             public void run() {
-                if (time.getTime(ChronoUnit.SECONDS) < 1) {
+                time.subtractTime(ChronoUnit.SECONDS, 1);
+
+                if (time.getTime(ChronoUnit.SECONDS) <= 0) {
                     LockHolder.removeLock(Lock.this);
                     this.cancel();
                 }
-
-                time.subtractTime(ChronoUnit.SECONDS, 1);
 
             }
         }.runTaskTimer(API.getInstance(), 20, 20);
