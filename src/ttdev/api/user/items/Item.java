@@ -1,17 +1,19 @@
 package ttdev.api.user.items;
 
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import org.yaml.snakeyaml.Yaml;
 
 public class Item {
 
@@ -27,6 +29,7 @@ public class Item {
 	public Item(Item item) {
 		this.itemStack = item.getItemStack().clone();
 		this.itemMeta = item.getItemMeta().clone();
+		this.ID = item.getID();
 	}
 	
 	/**
@@ -45,6 +48,10 @@ public class Item {
 	public Item(Material material) {
 		this.itemStack = new ItemStack(material);
 		this.itemMeta = this.itemStack.getItemMeta();
+	}
+	
+	public Item(String file, String path) {
+		
 	}
 	
 	/**

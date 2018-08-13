@@ -55,8 +55,12 @@ public class AScoreboard {
 				Score s = this.objective.getScore(ChatColor.translateAlternateColorCodes('&', line));
 				s.setScore(slot);
 				this.scores.add(s);
+				return;
 			}
 		}
+		Score s = this.objective.getScore(ChatColor.translateAlternateColorCodes('&', line));
+		s.setScore(slot);
+		this.scores.add(s);
 	}
 	
 	/**
