@@ -1,24 +1,38 @@
 package ttdev.api.general.data;
 
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.function.Function;
 
 public class DataStore implements IDataStore {
+
+    private JavaPlugin plugin;
 
     private File associatedFile;
     private FileConfiguration configuration;
     private String identifier = "";
 
+    private boolean defaultConfig = false;
+
     private final String pathDelimiter = ".";
 
     public DataStore() {
 
+    }
+
+    public DataStore(JavaPlugin plugin) {
+        this.plugin = plugin;
+        configuration = plugin.getConfig();
+        defaultConfig = true;
     }
 
     public DataStore(String filePath) {
@@ -123,6 +137,13 @@ public class DataStore implements IDataStore {
         return convertedList;
     }
 
+    public <T> Map<String, T> loadMap(String path, Function<String, T> conversion) {
+        ConfigurationSection section = configuration.getConfigurationSection(path);
+        Map<String, T> map = new HashMap<>();
+        section.getKeys(false).forEach(key -> map.put(key, conversion.apply(key)));
+        return map;
+    }
+
     @Override
     public void save(IPreservable preservable) {
         preservable.save(this);
@@ -136,6 +157,11 @@ public class DataStore implements IDataStore {
     }
 
     private void saveConfiguration() {
+        if (defaultConfig) {
+            plugin.saveConfig();
+            return;
+        }
+
         try {
             configuration.save(associatedFile);
         } catch (IOException e) {
@@ -144,7 +170,7 @@ public class DataStore implements IDataStore {
     }
 
     public FileConfiguration getConfiguration() {
-        return YamlConfiguration.loadConfiguration(associatedFile);
+        return defaultConfig ? plugin.getConfig() : YamlConfiguration.loadConfiguration(associatedFile);
     }
 
 }
