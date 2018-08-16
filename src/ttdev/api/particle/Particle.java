@@ -30,7 +30,7 @@ public class Particle {
     }
 
     /**
-     * Sets the particle type.
+     * Sets the particle datatype.
      * @param particle
      * @return
      */

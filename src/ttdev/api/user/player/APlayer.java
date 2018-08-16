@@ -3,8 +3,8 @@ package ttdev.api.user.player;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import ttdev.api.general.data.DataStore;
-import ttdev.api.user.items.Item;
+import ttdev.api.data.DataStore;
+import ttdev.api.inventory.Item;
 
 import java.util.List;
 
@@ -120,9 +120,9 @@ class APlayer extends DataStore implements IPlayer {
     }
 
     @Override
-    public void sendColoredMessage(char colorcode, String message, Object... args) {
+    public void sendColoredMessage(char colorCode, String message, Object... args) {
         String formattedMessage = String.format(message, args);
-        player.sendMessage(ChatColor.translateAlternateColorCodes(colorcode, formattedMessage));
+        player.sendMessage(ChatColor.translateAlternateColorCodes(colorCode, formattedMessage));
     }
 
     @Override

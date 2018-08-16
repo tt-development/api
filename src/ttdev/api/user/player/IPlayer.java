@@ -4,8 +4,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import ttdev.api.general.data.IDataStore;
-import ttdev.api.user.items.Item;
+import ttdev.api.data.IDataStore;
+import ttdev.api.inventory.Item;
 
 import java.util.List;
 import java.util.UUID;
@@ -160,11 +160,11 @@ public interface IPlayer extends IDataStore {
     /**
      * Sends a colored formatted message to the player replacing all characters
      * matching <code>colorCode</code> with the corresponding color code.
-     * @param colorcode
+     * @param colorCode
      * @param message
      * @param args
      */
-    void sendColoredMessage(char colorcode, String message, Object... args);
+    void sendColoredMessage(char colorCode, String message, Object... args);
 
     /**
      * Checks equality between this player and the specified player by

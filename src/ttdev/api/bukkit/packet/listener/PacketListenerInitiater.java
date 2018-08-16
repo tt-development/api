@@ -1,24 +1,19 @@
 package ttdev.api.bukkit.packet.listener;
 
-import java.util.ArrayList;
-
+import io.netty.channel.*;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
-
-import io.netty.channel.Channel;
-import io.netty.channel.ChannelDuplexHandler;
-import io.netty.channel.ChannelHandlerContext;
-import io.netty.channel.ChannelPipeline;
-import io.netty.channel.ChannelPromise;
 import ttdev.api.bukkit.packet.PacketType;
 import ttdev.api.bukkit.packet.event.PacketListener;
 import ttdev.api.bukkit.packet.event.PacketListenerEvent;
-import ttdev.api.general.configuration.APIConfiguration;
-import ttdev.api.general.configuration.Status;
+import ttdev.api.configuration.APIConfiguration;
+import ttdev.api.configuration.Status;
+
+import java.util.ArrayList;
 
 public class PacketListenerInitiater implements Listener {
 	

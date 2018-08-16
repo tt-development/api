@@ -28,7 +28,7 @@ public class ColoredParticle {
     }
 
     /**
-     * Sets the particle type.
+     * Sets the particle datatype.
      * @param particle
      * @return
      */

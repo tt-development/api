@@ -1,16 +1,15 @@
 package ttdev.api.bukkit;
 
 import org.bukkit.plugin.Plugin;
-
 import ttdev.api.API;
-import ttdev.api.general.configuration.APIConfiguration;
-import ttdev.api.general.configuration.Status;
+import ttdev.api.configuration.APIConfiguration;
+import ttdev.api.configuration.Status;
+import ttdev.api.inventory.events.inventoryclick.InventoryClickEventInitiater;
+import ttdev.api.inventory.events.inventoryclick.InventoryListener;
+import ttdev.api.inventory.events.inventoryupdate.InventoryUpdateEventInitiater;
+import ttdev.api.inventory.events.inventoryupdate.InventoryUpdateListener;
 import ttdev.api.redstone.event.RedstoneListener;
 import ttdev.api.redstone.event.RedstoneTriggerEventInitiater;
-import ttdev.api.user.inventory.events.inventoryclick.InventoryClickEventInitiater;
-import ttdev.api.user.inventory.events.inventoryclick.InventoryListener;
-import ttdev.api.user.inventory.events.inventoryupdate.InventoryUpdateEventInitiater;
-import ttdev.api.user.inventory.events.inventoryupdate.InventoryUpdateListener;
 
 public class Manager {
 

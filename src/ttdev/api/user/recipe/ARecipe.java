@@ -4,7 +4,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ShapedRecipe;
-import ttdev.api.user.items.Item;
+import ttdev.api.inventory.Item;
 
 import java.util.ArrayList;
 import java.util.Iterator;
