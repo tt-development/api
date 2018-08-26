@@ -112,12 +112,47 @@ public class Lock implements IPreservable {
 
         private long time; // Time in seconds
 
+        // Used only as convenience in getting the formatted time
+        private final int secondsInDay = 60 * 60 * 24;
+        private final int secondsInHour = 60 * 60;
+        private final int secondsInMinute = 60;
+
         public Time(ChronoUnit chronoUnit, long time) {
             this.time = Duration.of(time, chronoUnit).get(ChronoUnit.SECONDS);
         }
 
         public long getTime(ChronoUnit chronoUnit) {
             return Duration.of(time, chronoUnit).get(chronoUnit);
+        }
+
+        /**
+         * Get the time as a <code>String</code> in <code>DD:HH:MM:SS</code> format.
+         *
+         * @return
+         */
+        public String getFormattedTime() {
+
+            long days = 0, hours = 0, minutes = 0, seconds;
+            long localTime = time;
+
+            if (time > secondsInDay) {
+                days = localTime / secondsInDay;
+                localTime -= days * secondsInDay;
+            }
+
+            if (time > secondsInHour) {
+                hours = localTime / secondsInHour;
+                localTime -= hours * secondsInHour;
+            }
+
+            if (time > secondsInMinute) {
+                minutes = localTime / secondsInMinute;
+                localTime -= minutes * secondsInMinute;
+            }
+
+            seconds = localTime;
+
+            return days + "days, " + hours + " hours, " + minutes + " minutes, " + seconds + " seconds";
         }
 
         public long subtractTime(ChronoUnit chronoUnit, long amount) {
