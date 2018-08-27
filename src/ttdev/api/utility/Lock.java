@@ -152,10 +152,10 @@ public class Lock implements IPreservable {
 
             Instead it will be just "30 minutes".
              */
-            return (days > 0 ? "%d days, " : "") +
+            return String.format((days > 0 ? "%d days, " : "") +
                     (hours > 0 ? "%d hours, " : "") +
                     (minutes > 0 ? "%d minutes, " : "") +
-                    (seconds > 0 ? "%d seconds" : "");
+                    (seconds > 0 ? "%d seconds" : ""), days, hours, minutes, seconds);
         }
 
         public long subtractTime(ChronoUnit chronoUnit, long amount) {
