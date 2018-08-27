@@ -113,9 +113,9 @@ public class Lock implements IPreservable {
         private long time; // Time in seconds
 
         // Used only as convenience in getting the formatted time
-        private final int secondsInDay = 60 * 60 * 24;
-        private final int secondsInHour = 60 * 60;
         private final int secondsInMinute = 60;
+        private final int secondsInHour = secondsInMinute * 60;
+        private final int secondsInDay = secondsInHour * 24;
 
         public Time(ChronoUnit chronoUnit, long time) {
             this.time = Duration.of(time, chronoUnit).get(ChronoUnit.SECONDS);
