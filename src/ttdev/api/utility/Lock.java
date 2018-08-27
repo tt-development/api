@@ -132,27 +132,30 @@ public class Lock implements IPreservable {
          */
         public String getFormattedTime() {
 
-            long days = 0, hours = 0, minutes = 0, seconds;
+            long days, hours, minutes, seconds;
             long localTime = time;
 
-            if (time > secondsInDay) {
-                days = localTime / secondsInDay;
-                localTime -= days * secondsInDay;
-            }
+            days = localTime / secondsInDay;
+            localTime -= days * secondsInDay;
 
-            if (time > secondsInHour) {
-                hours = localTime / secondsInHour;
-                localTime -= hours * secondsInHour;
-            }
+            hours = localTime / secondsInHour;
+            localTime -= hours * secondsInHour;
 
-            if (time > secondsInMinute) {
-                minutes = localTime / secondsInMinute;
-                localTime -= minutes * secondsInMinute;
-            }
+            minutes = localTime / secondsInMinute;
+            localTime -= minutes * secondsInMinute;
 
             seconds = localTime;
 
-            return days + "days, " + hours + " hours, " + minutes + " minutes, " + seconds + " seconds";
+            /*
+            Construct formatted time and only append a time if it's value is greater than zero
+            Prevents situations like "0 days, 0 hours, 30 minutes, 0 seconds"
+
+            Instead it will be just "30 minutes".
+             */
+            return (days > 0 ? "%d days, " : "") +
+                    (hours > 0 ? "%d hours, " : "") +
+                    (minutes > 0 ? "%d minutes, " : "") +
+                    (seconds > 0 ? "%d seconds" : "");
         }
 
         public long subtractTime(ChronoUnit chronoUnit, long amount) {
