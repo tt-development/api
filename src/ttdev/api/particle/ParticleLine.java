@@ -2,7 +2,6 @@ package ttdev.api.particle;
 
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
-import org.bukkit.scheduler.BukkitRunnable;
 import ttdev.api.API;
 
 import java.util.Arrays;
@@ -101,50 +100,55 @@ public class ParticleLine implements ParticleModel {
 	}
 
 	@Override
-	public void play(Location location, Player... players) {
-		
-		new BukkitRunnable() {
+    public void play(Location location, Player... players) {
 
-			Location currentLocation = start;
-			double x, y, z;
+        API.runAsyncTask(() -> {
 
-			public void run() {
-				/*
-				 * While the current location of playing particles isn't equal to the ending
-				 * location 'end' continue playing the effect.
-				 */
-				for (;;) {
+            final Location currentLocation = start;
+            double x, y, z;
 
-					double distance = currentLocation.distance(end);
-					if (distance < properties.density) {
-						// When the projectile hits the target
-						Arrays.stream(players).forEach(player -> endModel.play(currentLocation, players));
-						endFunc.accept(end, players);
-						break;
-					}
+            /*
+             * While the current location of playing particles isn't equal to the ending
+             * location 'end' continue playing the effect.
+             */
+            for (; ; ) {
 
-					/* Update the x, y, and z to the next particle location */
-					x = currentLocation.getX();
-					y = currentLocation.getY();
-					z = currentLocation.getZ();
+                double distance = currentLocation.distance(end);
 
-					/* Sleep... Zzz */
-					try {
-						Thread.sleep(playSpeed);
-					} catch (InterruptedException e) {
-						e.printStackTrace();
-					}
+                if (distance < properties.density) {
+                    // When the projectile hits the target
+                    Arrays.stream(players).forEach(player -> endModel.play(currentLocation, players));
+                    API.runSyncTask(() -> endFunc.accept(location, players));
+                    break;
+                }
 
-					/* Send the packet to the players. */
-					Arrays.stream(players).forEach(player -> {
-						lineModel.play(currentLocation, players);
-					});
+                /* Update the x, y, and z to the next particle location */
+                x = currentLocation.getX();
+                y = currentLocation.getY();
+                z = currentLocation.getZ();
 
-					/* Set the next location to play the particle at */
-					currentLocation = currentLocation.add(xSpeed, ySpeed, zSpeed);
-				}
-			}
-		}.runTaskAsynchronously(API.getInstance());
-	}
+                /* Sleep... Zzz */
+                try {
+                    Thread.sleep(playSpeed);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+                /* Send the packet to the players. */
+                Arrays.stream(players).forEach(player -> {
+                    lineModel.play(currentLocation, players);
+                });
+
+                /* Set the next location to play the particle at */
+                //TODO Untested changes
+                /* Changed currentLocation assignment and method call
+                to just a method call and things may not work as intended.
+                 */
+                currentLocation.add(xSpeed, ySpeed, zSpeed);
+            }
+        });
+
+
+    }
 
 }

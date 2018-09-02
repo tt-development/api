@@ -3,6 +3,7 @@ package ttdev.api;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitRunnable;
 
 /**
  * Spigot API for minecraft 1.8 - 1.12. Developed by T&T development.
@@ -53,6 +54,24 @@ public class API extends JavaPlugin {
 	
 	public static APIMode getMode() {
 		return mode;
+	}
+
+	public static void runAsyncTask(Runnable runnable){
+		new BukkitRunnable(){
+			@Override
+			public void run() {
+				runnable.run();
+			}
+		}.runTaskAsynchronously(singleton);
+	}
+
+	public static void runSyncTask(Runnable runnable){
+		new BukkitRunnable(){
+			@Override
+			public void run(){
+				runnable.run();
+			}
+		}.runTask(singleton);
 	}
 	
 }

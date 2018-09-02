@@ -120,9 +120,9 @@ class APlayer extends DataStore implements IPlayer {
     }
 
     @Override
-    public void sendColoredMessage(char colorcode, String message, Object... args) {
+    public void sendColoredMessage(char colorCode, String message, Object... args) {
         String formattedMessage = String.format(message, args);
-        player.sendMessage(ChatColor.translateAlternateColorCodes(colorcode, formattedMessage));
+        player.sendMessage(ChatColor.translateAlternateColorCodes(colorCode, formattedMessage));
     }
 
     @Override
