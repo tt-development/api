@@ -140,10 +140,6 @@ public class ParticleLine implements ParticleModel {
                 });
 
                 /* Set the next location to play the particle at */
-                //TODO Untested changes
-                /* Changed currentLocation assignment and method call
-                to just a method call and things may not work as intended.
-                 */
                 currentLocation.add(xSpeed, ySpeed, zSpeed);
             }
         });

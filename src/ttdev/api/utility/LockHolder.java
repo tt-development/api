@@ -13,6 +13,7 @@ public class LockHolder {
     private static List<Lock> locks = new ArrayList<>();
 
     public static void loadLocks(JavaPlugin plugin) {
+
         DataStore dataStore = new DataStore(plugin.getDataFolder().getPath() + "/lock-data.yml");
         int lockCount = dataStore.loadInteger("lock-count");
 

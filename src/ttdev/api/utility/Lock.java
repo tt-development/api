@@ -82,12 +82,12 @@ public class Lock implements IPreservable {
         dataStore.saveString(uuid.toString(), "uuid");
         dataStore.saveLong(time.getTime(ChronoUnit.SECONDS), "time");
         dataStore.saveString(action.toString(), "action");
-
         return true;
     }
 
     @Override
     public boolean load(DataStore dataStore) {
+
         FileConfiguration configuration = dataStore.getConfiguration();
 
         for (String key : configuration.getKeys(false)) {
@@ -126,7 +126,7 @@ public class Lock implements IPreservable {
         }
 
         /**
-         * Get the time as a <code>String</code> in <code>DD:HH:MM:SS</code> format.
+         * Get the time as a {@code String} in {@code DD days HH hours MM minutes SS seconds} format.
          *
          * @return
          */
@@ -146,16 +146,21 @@ public class Lock implements IPreservable {
 
             seconds = localTime;
 
-            /*
-            Construct formatted time and only append a time if it's value is greater than zero
-            Prevents situations like "0 days, 0 hours, 30 minutes, 0 seconds"
-
-            Instead it will be just "30 minutes".
+            /* The ways in which time can be displayed depending
+            on whether the value of the time unit is greater
+            than 0, unless it's seconds.
              */
-            return String.format((days > 0 ? "%d days, " : "") +
-                    (hours > 0 ? "%d hours, " : "") +
-                    (minutes > 0 ? "%d minutes, " : "") +
-                    (seconds > 0 ? "%d seconds" : ""), days, hours, minutes, seconds);
+
+            if (days > 0) {
+                return String.format("%d days, %d hours, %d minutes, %d seconds", days, hours, minutes, seconds);
+            } else if (hours > 0) {
+                return String.format("%d hours, %d minutes, %d seconds", hours, minutes, seconds);
+            } else if (minutes > 0) {
+                return String.format("%d minutes, %d seconds", minutes, seconds);
+            } else {
+                return String.format("%d seconds", seconds);
+            }
+
         }
 
         public long subtractTime(ChronoUnit chronoUnit, long amount) {
