@@ -38,18 +38,18 @@ public class Lock implements IPreservable {
     }
 
     private void startTimer() {
+
         new BukkitRunnable() {
             @Override
             public void run() {
                 time.subtractTime(ChronoUnit.SECONDS, 1);
-
                 if (time.getTime(ChronoUnit.SECONDS) <= 0) {
                     LockHolder.removeLock(Lock.this);
                     this.cancel();
                 }
-
             }
         }.runTaskTimer(API.getInstance(), 20, 20);
+
     }
 
     public UUID getPlayerUUID() {
@@ -117,8 +117,31 @@ public class Lock implements IPreservable {
         private final int secondsInHour = secondsInMinute * 60;
         private final int secondsInDay = secondsInHour * 24;
 
+        /**
+         *
+         * @param chronoUnit
+         * @param time
+         * @deprecated Create via static methods in {@code Lock.Time}
+         */
+        @Deprecated
         public Time(ChronoUnit chronoUnit, long time) {
             this.time = Duration.of(time, chronoUnit).get(ChronoUnit.SECONDS);
+        }
+
+        public static Time ofSeconds(long seconds) {
+            return new Time(ChronoUnit.SECONDS, seconds);
+        }
+
+        public static Time ofMinutes(long minutes) {
+            return new Time(ChronoUnit.MINUTES, minutes);
+        }
+
+        public static Time ofHours(long hours) {
+            return new Time(ChronoUnit.HOURS, hours);
+        }
+
+        public static Time ofDays(long days) {
+            return new Time(ChronoUnit.DAYS, days);
         }
 
         public long getTime(ChronoUnit chronoUnit) {
