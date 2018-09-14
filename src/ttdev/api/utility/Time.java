@@ -15,7 +15,7 @@ public class Time {
     /**
      * @param chronoUnit
      * @param time
-     * @deprecated Create via static methods in {@code Lock.Time}
+     * @deprecated Create via static methods in {@code Time}
      */
     @Deprecated
     public Time(ChronoUnit chronoUnit, long time) {

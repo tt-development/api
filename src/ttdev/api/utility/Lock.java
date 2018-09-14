@@ -32,12 +32,14 @@ public class Lock implements IPreservable {
         this.uuid = player.getUniqueId();
         this.action = action;
         this.time = time;
-
-        startTimer();
     }
 
-    private void startTimer() {
-
+    /**
+     * Start the count down timer
+     * on this lock. This essentially enables
+     * the lock.
+     */
+    public void activate() {
         new BukkitRunnable() {
             @Override
             public void run() {
@@ -48,7 +50,6 @@ public class Lock implements IPreservable {
                 }
             }
         }.runTaskTimer(API.getInstance(), 20, 20);
-
     }
 
     public UUID getPlayerUUID() {
@@ -101,8 +102,6 @@ public class Lock implements IPreservable {
             time = new Time(ChronoUnit.SECONDS, dataStore.loadLong("time"));
             action = dataStore.loadString("action");
         }
-
-        startTimer();
 
         return true;
     }

@@ -4,13 +4,13 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import ttdev.api.general.data.DataStore;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 public class LockHolder {
 
-    private static List<Lock> locks = new ArrayList<>();
+    private static Set<Lock> locks = new HashSet<>();
 
     public static void loadLocks(JavaPlugin plugin) {
 
@@ -59,7 +59,7 @@ public class LockHolder {
         locks.remove(lock);
     }
 
-    public static List<Lock> getLocks() {
+    public static Set<Lock> getLocks() {
         return locks;
     }
 }
