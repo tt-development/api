@@ -111,7 +111,7 @@ public class ParticleLine implements ParticleModel {
              * While the current location of playing particles isn't equal to the ending
              * location 'end' continue playing the effect.
              */
-            for (; ; ) {
+            while(true) {
 
                 double distance = currentLocation.distance(end);
 

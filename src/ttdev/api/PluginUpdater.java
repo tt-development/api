@@ -1,14 +1,13 @@
 package ttdev.api;
 
+import org.bukkit.scheduler.BukkitRunnable;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
-
-import org.bukkit.scheduler.BukkitRunnable;
 
 public class PluginUpdater {
 	
@@ -50,8 +49,8 @@ public class PluginUpdater {
 		    }
 		    fileOutput.close();
 
-		} catch (MalformedURLException e) {
 		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 	
