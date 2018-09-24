@@ -2,7 +2,7 @@ package ttdev.api.user.inventory.fill
 
 import ttdev.api.user.inventory.AInventory
 
-data class Fill(val one: FillColor?, val two: FillColor?, val three: FillColor?, val four: FillColor?) {
+data class Fill(val one: FillColor? = null, val two: FillColor? = null, val three: FillColor? = null, val four: FillColor? = null) {
 
     var start = 0
     var spacing = 1
