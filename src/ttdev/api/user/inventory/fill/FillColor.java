@@ -23,7 +23,8 @@ public enum FillColor {
     BROWN(12, "brown"),
     GREEN(13, "green"),
     RED(14, "red"),
-    BLACK(15, "black");
+    BLACK(15, "black"),
+    NONE(0, "none");
     
     private short colorShort;
     private String colorString;

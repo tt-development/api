@@ -237,6 +237,7 @@ public class AInventory {
 	 * @return
 	 */
 	public ArrayList<Pair<Item, Integer>> getItems() {
+		Pair<Integer, Long> pairNum = new Pair<>(10, 10L);
 		return this.items;
 	}
 	

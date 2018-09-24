@@ -1,12 +1,10 @@
 package ttdev.api.bukkit.bungeecord;
 
+import com.google.common.io.ByteArrayDataOutput;
+import com.google.common.io.ByteStreams;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.messaging.PluginMessageListener;
-
-import com.google.common.io.ByteArrayDataOutput;
-import com.google.common.io.ByteStreams;
-
 import ttdev.api.API;
 
 public class Bungeecord implements PluginMessageListener {
@@ -58,7 +56,6 @@ public class Bungeecord implements PluginMessageListener {
 		out.writeUTF("ConnectOther");
 		out.writeUTF(player);
 		out.writeUTF(server);
-		
 		
 	}
 
