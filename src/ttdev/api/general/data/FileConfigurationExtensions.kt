@@ -13,7 +13,7 @@ import org.bukkit.configuration.file.FileConfiguration
  * if empty or casting key-value pairs to their preferred
  * type failed.
  */
-inline fun <reified K, reified V> FileConfiguration.getMap(path: String, keyParser: (String) -> K, valueParser: (String) -> V): MutableMap<K, V>? {
+inline fun <K, V> FileConfiguration.getMap(path: String, keyParser: (String) -> K, valueParser: (String) -> V): MutableMap<K, V>? {
 
     val map = mutableMapOf<K, V>()
 
