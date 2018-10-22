@@ -9,11 +9,10 @@ import org.bukkit.configuration.file.FileConfiguration
  *   key: value
  *   key: value
  * ```
- * This function will return null if the created map
- * if empty or casting key-value pairs to their preferred
- * type failed.
+ * Key-value pairs are converted into `K` and `V` respectively
+ * by the functions provided as parameters.
  */
-inline fun <K, V> FileConfiguration.getMap(path: String, keyParser: (String) -> K, valueParser: (String) -> V): MutableMap<K, V>? {
+inline fun <K, V> FileConfiguration.getMap(path: String, keyParser: (Any) -> K, valueParser: (Any) -> V): MutableMap<K, V> {
 
     val map = mutableMapOf<K, V>()
 
@@ -31,5 +30,12 @@ inline fun <K, V> FileConfiguration.getMap(path: String, keyParser: (String) -> 
         map[keyType] = valueType
     }
 
-    return if (map.isEmpty()) null else map
+    return map
+}
+
+fun <K, V> FileConfiguration.setMap(path: String, map: Map<K, V>) {
+
+    createSection(path)
+
+    map.entries.forEach { set("$path.${it.key}", it.value) }
 }
