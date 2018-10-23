@@ -12,7 +12,7 @@ import org.bukkit.configuration.file.FileConfiguration
  * Key-value pairs are converted into `K` and `V` respectively
  * by the functions provided as parameters.
  */
-inline fun <K, V> FileConfiguration.getMap(path: String, keyParser: (Any) -> K, valueParser: (Any) -> V): MutableMap<K, V> {
+fun <K, V> FileConfiguration.getMap(path: String, keyParser: (String) -> K, valueParser: (Any) -> V): MutableMap<K, V> {
 
     val map = mutableMapOf<K, V>()
 
