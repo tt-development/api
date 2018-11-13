@@ -39,3 +39,11 @@ fun <K, V> FileConfiguration.setMap(path: String, map: Map<K, V>) {
 
     map.entries.forEach { set("$path.${it.key}", it.value) }
 }
+
+fun <T> FileConfiguration.setCollection(collection: Collection<T>, path: String, parser: (T) -> String) {
+    set(path, collection.map(parser))
+}
+
+fun <T> FileConfiguration.getCollection(path: String, parser: (String) -> T): Collection<T> {
+    return getStringList(path).map(parser)
+}

@@ -37,13 +37,10 @@ public class ParticleLine implements ParticleModel {
 	}
 
 	private class ParticleProperties {
-
 		float density;
-
 		private ParticleProperties(float density) {
 			this.density = density;
 		}
-
 	}
 
 	private void setCoordinates() {

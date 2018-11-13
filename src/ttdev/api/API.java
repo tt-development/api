@@ -34,6 +34,8 @@ public class API extends JavaPlugin {
             PluginUpdater.startTimer();
         }
 
+        getCommand("runtests").setExecutor(new TestCommand());
+
     }
 
     /**
