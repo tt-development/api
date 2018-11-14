@@ -56,8 +56,11 @@ class CustomItem(val entry: ItemNamespaceRegistry.Entry, name: String, private v
     fun setLore(text: String, line: Int) {
         setMetaProperty {
             var lore = if (it.hasLore()) it.lore else mutableListOf()
-            if (lore[line] == null) lore.add(line, text)
-            else lore[line] = text
+            try {
+                lore[line] = text
+            } catch (e: IndexOutOfBoundsException) {
+                lore.add(line, text)
+            }
             it.lore = lore
         }
     }
@@ -73,5 +76,7 @@ class CustomItem(val entry: ItemNamespaceRegistry.Entry, name: String, private v
 
 fun colorize(sequence: String) = ChatColor.translateAlternateColorCodes('&', sequence)
 
-fun ItemStack.isCustomItem() = ItemNamespaceRegistry.identifiers.any { itemMeta.displayName.startsWith(it.name) }
+fun ItemStack.isCustomItem() = ItemNamespaceRegistry.identifiers.any {
+    return@any if (!hasItemMeta() || !itemMeta.hasLore()) return false else itemMeta.lore[0] == (it.name)
+}
 

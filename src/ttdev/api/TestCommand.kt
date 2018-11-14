@@ -16,15 +16,18 @@ class TestCommand : CommandExecutor {
         ItemNamespaceRegistry.addName("John Doe")
         ItemNamespaceRegistry.addName("another")
 
-        println("Item namespace entries: ${ItemNamespaceRegistry.identifiers.size}")
+        val entryCount = ItemNamespaceRegistry.identifiers.size
+        if (entryCount != 2) {
+            println("entry count failed")
+        }
 
         val doeEntry = ItemNamespaceRegistry.getEntry("John Doe") ?: kotlin.run {
-            println("Entry is null.")
+            println("get entry 1 failed")
             return true
         }
 
         val anotherEntry = ItemNamespaceRegistry.getEntry("another") ?: kotlin.run {
-            println("Another entry is null.")
+            println("get entry 2 failed")
             return true
         }
 
@@ -40,8 +43,8 @@ class TestCommand : CommandExecutor {
         player.inventory.addItem(customItem.makeItemStack())
         player.inventory.addItem(customItem1.makeItemStack())
 
-        if (player.itemInHand.isCustomItem()) {
-            println("Item in hand is custom.")
+        if (!player.itemInHand.isCustomItem()) {
+            println("custom item failed")
         }
 
         return true
