@@ -55,7 +55,9 @@ public interface IDataStore {
 
     <T> List<T> loadList(String path, Function<String, T> conversion);
 
-    <T> Map<String, T> loadMap(String path, Function<String, T> conversion);
+    <K, V> Map<K, V> loadMap(String path, Function<String, K> keyParser, Function<String, V> valueParser);
+
+    <T> void saveMap(String path, Map<String, T> map);
 
     void save(IPreservable preservable);
 
