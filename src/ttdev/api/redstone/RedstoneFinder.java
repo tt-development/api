@@ -43,7 +43,7 @@ abstract class RedstoneFinder {
             Block connectedBlock = location.getBlock();
             Material blockType = connectedBlock.getType();
 
-            if (blockType == Material.REDSTONE_WIRE || blockType == Material.REDSTONE_BLOCK || blockType == Material.REDSTONE_TORCH_ON) {
+            if (blockType == Material.REDSTONE_WIRE || blockType == Material.REDSTONE_BLOCK || blockType == Material.LEGACY_REDSTONE_TORCH_ON) {
                 connectedRedstone.add(connectedBlock);
             }
 

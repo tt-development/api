@@ -18,6 +18,7 @@ import ttdev.api.user.items.Item;
 
 public class AInventory {
 
+	private String name;
 	private int size;
 	
 	private Player lastClicker;
@@ -45,6 +46,7 @@ public class AInventory {
 		
 		this.canceled = false;
 		this.cancelClick = false;
+		this.name = name;
 		
 		this.inventory = Bukkit.createInventory(null, (rows * 9), ChatColor.translateAlternateColorCodes('&', name));
 		
@@ -104,7 +106,7 @@ public class AInventory {
 	 * @return
 	 */
 	public String getName() {
-		return this.inventory.getName();
+		return this.name;
 	}
 	
 	/**

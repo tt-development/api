@@ -7,14 +7,14 @@ import ttdev.api.user.items.Item;
 
 public class FillPlacer {
 
-    private ItemStack itemStack = new ItemStack(Material.STAINED_GLASS_PANE);
+    private ItemStack itemStack = new ItemStack(Material.LEGACY_STAINED_GLASS_PANE);
 
     public FillPlacer(FillColor fillColor) {
         itemStack.setDurability(fillColor.getShort());
     }
 
     public void setFill(FillColor fillColor) {
-        itemStack = new ItemStack(Material.STAINED_GLASS_PANE, 1, fillColor.getShort());
+        itemStack = new ItemStack(Material.LEGACY_STAINED_GLASS_PANE, 1, fillColor.getShort());
     }
 
     public void placeIntermittently(int start, int spacing, AInventory inventory) {
