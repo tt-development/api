@@ -10,11 +10,11 @@ public class FillPlacer {
     private ItemStack itemStack = new ItemStack(Material.LEGACY_STAINED_GLASS_PANE);
 
     public FillPlacer(FillColor fillColor) {
-        itemStack.setDurability(fillColor.getShort());
+        itemStack.setDurability(fillColor.getId());
     }
 
     public void setFill(FillColor fillColor) {
-        itemStack = new ItemStack(Material.LEGACY_STAINED_GLASS_PANE, 1, fillColor.getShort());
+        itemStack = new ItemStack(Material.LEGACY_STAINED_GLASS_PANE, 1, fillColor.getId());
     }
 
     public void placeIntermittently(int start, int spacing, AInventory inventory) {

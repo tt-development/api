@@ -3,3 +3,4 @@ main: ttdev.api.API
 authors: [Thomas, Tre]
 version: 1.2
 commands:
+  runtests:

@@ -137,11 +137,18 @@ public class DataStore implements IDataStore {
         return convertedList;
     }
 
-    public <T> Map<String, T> loadMap(String path, Function<String, T> conversion) {
+    @Override
+    public <K, V> Map<K, V> loadMap(String path, Function<String, K> keyParser, Function<String, V> valueParser) {
         ConfigurationSection section = configuration.getConfigurationSection(path);
-        Map<String, T> map = new HashMap<>();
-        section.getKeys(false).forEach(key -> map.put(key, conversion.apply(key)));
+        Map<K, V> map = new HashMap<>();
+        section.getKeys(false).forEach(key -> map.put(keyParser.apply(key), valueParser.apply(section.getString(key))));
         return map;
+    }
+
+    @Override
+    public <T> void saveMap(String path, Map<String, T> map) {
+        ConfigurationSection section = configuration.getConfigurationSection(path);
+        map.keySet().forEach(key -> section.set(key, map.get(key)));
     }
 
     @Override

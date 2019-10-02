@@ -1,19 +1,18 @@
 package ttdev.api.user.inventory;
 
-import java.util.ArrayList;
-
+import kotlin.Pair;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-
-import ttdev.api.APair;
 import ttdev.api.user.inventory.events.inventoryupdate.InventoryUpdate;
 import ttdev.api.user.inventory.events.inventoryupdate.InventoryUpdateEventInitiater;
 import ttdev.api.user.inventory.events.inventoryupdate.InventoryUpdateType;
 import ttdev.api.user.inventory.listener.InventoryEvent;
 import ttdev.api.user.items.Item;
+
+import java.util.ArrayList;
 
 
 public class AInventory {
@@ -28,7 +27,7 @@ public class AInventory {
 	private boolean canceled;
 	private boolean cancelClick;
 	
-	private ArrayList<APair<Item, Integer>> items = new ArrayList<>();
+	private ArrayList<Pair<Item, Integer>> items = new ArrayList<>();
 	
 	/**
 	 * Used to initialize an inventory.
@@ -130,7 +129,7 @@ public class AInventory {
 			return;
 		}
 		
-		this.items.add(new APair<Item, Integer>(item, null));
+		this.items.add(new Pair<>(item, null));
 		this.inventory.addItem(item.getItemStack());
 	}
 	
@@ -148,7 +147,7 @@ public class AInventory {
 			return;
 		}
 
-		items.add(new APair<Item, Integer>(item, slot));
+		items.add(new Pair<>(item, slot));
 		this.inventory.setItem(slot, item.getItemStack());
 	}
 	
@@ -166,8 +165,8 @@ public class AInventory {
 		}
 		
 		for (int i=0; i < this.items.size(); i++) {
-			APair<Item, Integer> tmp = this.items.get(i);
-			if (tmp.getValue() == slot) {
+			Pair<Item, Integer> tmp = this.items.get(i);
+			if (tmp.getSecond() == slot) {
 				this.items.remove(i);
 				break;
 			}
@@ -177,9 +176,9 @@ public class AInventory {
 	
 	public Item getItem(int slot) {
 		for (int i=0; i < this.items.size(); i++) {
-			APair<Item, Integer> tmp = this.items.get(i);
-			if (tmp.getValue() == slot) {
-				return tmp.getKey();
+			Pair<Item, Integer> tmp = this.items.get(i);
+			if (tmp.getSecond() == slot) {
+				return tmp.getFirst();
 			}
 		}
 		return null;
@@ -239,7 +238,7 @@ public class AInventory {
 	 * Returns all the items that are in the inventory.
 	 * @return
 	 */
-	public ArrayList<APair<Item, Integer>> getItems() {
+	public ArrayList<Pair<Item, Integer>> getItems() {
 		return this.items;
 	}
 	
